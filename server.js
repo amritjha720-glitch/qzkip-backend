@@ -108,7 +108,7 @@ app.get('/api/health', (req, res) => {
 // ==========================================
 const authRoutes = require('./routes/authRoutes');
 const vendorRoutes = require('./routes/vendorRoutes');
-const queueRoutes = require('./routes/queueRoutes');
+const queueRoutes = require('./routes/queueRoutesNew');
 const menuRoutes = require('./routes/menuRoutes');
 const customerRoutes = require('./routes/customerRoutes');
 
