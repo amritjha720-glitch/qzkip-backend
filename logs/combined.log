@@ -1,0 +1,563 @@
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-20 19:43:06"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-20 19:54:16"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-20 20:02:32"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 10:52:53"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-21 10:56:52"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 10:57:13"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 10:57:59"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-21 10:58:53"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 10:59:00"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-21 11:08:10"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 11:08:11"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-21 14:16:52"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-21 14:16:52"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-21 14:17:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-21 14:17:03"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-21 17:25:27"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 17:25:28"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-21 17:45:46"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 17:45:46"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-21 18:03:59"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-06-21 18:04:09"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-21 18:07:26"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-21 18:07:26"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-22 17:26:55"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-22 17:26:55"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-22 17:30:57"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-22 17:30:57"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-22 17:50:27"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-22 17:50:37"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-22 17:58:27"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-22 17:58:27"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-22 17:58:37"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-22 17:58:40"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-22 18:42:24"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 00:11:34"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 00:24:25"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-23 00:24:36"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 00:24:36"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 00:49:51"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 00:49:51"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-23 11:49:52"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 11:49:52"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 12:24:42"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 15:35:56"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 15:35:56"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-23 15:36:07"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 15:36:07"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 16:57:12"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 16:57:12"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-23 16:59:28"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 16:59:29"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 18:17:55"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 18:18:02"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-23 19:56:52"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-23 19:56:52"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-24 00:24:36"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-24 00:24:47"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-24 00:24:47"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-24 01:11:32"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-24 01:11:32"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-24 10:37:57"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-24 10:37:57"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-25 12:13:31"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-25 12:13:31"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-25 14:23:08"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-25 14:23:08"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-25 14:27:45"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-25 14:27:46"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-25 14:27:48"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-25 14:27:58"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-25 14:27:58"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-06-25 14:27:58"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-25 14:30:14"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-25 14:30:22"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-25 14:30:22"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-06-25 14:30:24"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-25 16:46:07"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-25 16:46:08"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-25 16:49:50"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-25 16:49:51"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-25 20:23:53"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-25 20:23:53"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-25 20:23:56"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-25 20:23:56"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-25 20:24:15"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 11:23:37"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 12:23:37"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 12:23:37"}
+{"ip":"::1","level":"error","message":"connection <monitor> to 159.41.183.250:27017 timed out","method":"POST","stack":"MongoServerSelectionError: connection <monitor> to 159.41.183.250:27017 timed out\n    at Topology.selectServer (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\sdam\\topology.js:327:38)\n    at async tryOperation (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:196:22)\n    at async executeOperation (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:78:16)\n    at async FindCursor._initialize (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\find_cursor.js:62:26)\n    at async FindCursor.cursorInit (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:632:27)\n    at async FindCursor.fetchBatch (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:666:13)\n    at async FindCursor.next (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:342:17)\n    at async Collection.findOne (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\collection.js:313:24)\n    at async model.Query._findOne (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\query.js:2710:15)\n    at async model.Query.exec (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\query.js:4627:63)","timestamp":"2026-06-26 12:23:43","url":"/api/auth/login"}
+{"ip":"::1","level":"error","message":"connection <monitor> to 159.41.183.250:27017 timed out","method":"POST","stack":"MongoServerSelectionError: connection <monitor> to 159.41.183.250:27017 timed out\n    at Topology.selectServer (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\sdam\\topology.js:327:38)\n    at async tryOperation (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:148:18)\n    at async executeOperation (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:78:16)\n    at async FindCursor._initialize (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\find_cursor.js:62:26)\n    at async FindCursor.cursorInit (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:632:27)\n    at async FindCursor.fetchBatch (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:666:13)\n    at async FindCursor.next (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:342:17)\n    at async Collection.findOne (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\collection.js:313:24)\n    at async model.Query._findOne (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\query.js:2710:15)\n    at async model.Query.exec (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\query.js:4627:63)","timestamp":"2026-06-26 12:23:52","url":"/api/auth/login"}
+{"ip":"::1","level":"error","message":"connect ETIMEDOUT 159.41.183.250:27017","method":"POST","stack":"MongoServerSelectionError: connect ETIMEDOUT 159.41.183.250:27017\n    at Topology.selectServer (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\sdam\\topology.js:327:38)\n    at async tryOperation (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:148:18)\n    at async executeOperation (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\operations\\execute_operation.js:78:16)\n    at async FindCursor._initialize (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\find_cursor.js:62:26)\n    at async FindCursor.cursorInit (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:632:27)\n    at async FindCursor.fetchBatch (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:666:13)\n    at async FindCursor.next (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\cursor\\abstract_cursor.js:342:17)\n    at async Collection.findOne (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongodb\\lib\\collection.js:313:24)\n    at async model.Query._findOne (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\query.js:2710:15)\n    at async model.Query.exec (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\query.js:4627:63)","timestamp":"2026-06-26 12:24:03","url":"/api/auth/login"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 13:33:59"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 13:34:10"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 13:34:10"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 15:03:27"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-26 15:16:45"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-06-26 15:16:55"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-26 15:16:56"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-26 15:16:57"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-26 15:42:54"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-26 15:43:03"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-26 15:43:04"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-06-26 15:43:04"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 16:26:17"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 16:26:17"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 17:33:33"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 17:33:44"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 17:37:26"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 17:37:26"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 17:38:34"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 17:38:45"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 18:48:04"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:01:06"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-26 21:02:47"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-26 21:03:04"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-26 21:03:06"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:11:06"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:11:06"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 21:11:17"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:11:17"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:27:58"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:27:58"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 21:28:09"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:28:09"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:45:16"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 21:45:16"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-26 23:35:07"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-26 23:35:07"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-29 16:53:33"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-29 17:15:38"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-29 17:15:38"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-29 17:44:45"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-29 17:45:00"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-29 18:51:00"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-29 18:51:10"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-06-29 19:52:10"}
+{"level":"info","message":"🔒 HTTP Server closed. Nayi API requests block kar di gayi hain.","timestamp":"2026-06-29 19:52:10"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-29 19:52:11"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-29 19:52:23"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-29 19:52:24"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-29 20:05:27"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-29 20:05:33"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-29 20:10:53"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-29 20:10:53"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-29 20:58:14"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-29 20:58:14"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-06-30 17:02:43"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-06-30 17:02:45"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-06-30 17:14:51"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-06-30 17:14:53"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 14:25:17"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 14:25:17"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-01 16:02:45"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 16:02:45"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-01 16:05:02"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-07-01 16:05:12"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-01 16:05:13"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-01 16:05:15"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 17:46:20"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 17:46:20"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-01 17:46:31"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 17:46:31"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 20:06:15"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-01 20:06:16"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 12:56:56"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 12:56:57"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 12:57:20"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 12:57:22"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 12:57:41"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 12:57:42"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 12:57:59"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 12:58:00"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 13:08:29"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 13:08:30"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 13:24:26"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 13:24:27"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-02 15:31:40"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-02 15:31:40"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-02 15:32:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-02 15:32:06"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 15:51:31"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 15:51:32"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 15:52:10"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 15:52:10"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 15:59:29"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 15:59:30"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 16:06:20"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 16:06:21"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-02 17:50:33"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-02 17:50:33"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-02 17:52:07"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-02 17:52:07"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-02 20:02:48"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-07-02 20:02:58"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-02 20:02:59"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-02 20:03:00"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 15:54:43"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 15:54:44"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 15:56:18"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 15:56:19"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 15:56:23"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 15:56:24"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 15:56:30"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 15:56:31"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 15:56:34"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 15:56:34"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-03 16:33:02"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 16:33:11"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 16:33:12"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-07-03 16:33:12"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-03 17:41:37"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-03 17:41:51"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-03 17:42:28"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-03 17:42:39"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 19:51:11"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 19:51:12"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-03 20:26:37"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-03 20:26:37"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-03 20:29:10"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-03 20:29:19"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-03 20:53:10"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-03 20:53:10"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-04 15:29:29"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-04 15:29:30"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-04 15:38:38"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-04 15:38:39"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-04 15:39:20"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-04 15:39:21"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-04 20:51:59"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-04 20:51:59"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-04 20:52:49"}
+{"level":"info","message":"🔒 HTTP Server closed. Nayi API requests block kar di gayi hain.","timestamp":"2026-07-04 20:52:49"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-04 20:52:50"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-04 20:52:56"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-04 20:52:57"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-04 20:54:48"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-04 20:54:56"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-04 20:54:58"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-05 21:06:11"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-05 21:06:12"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-05 21:06:22"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-05 21:06:23"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-05 22:31:17"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-05 22:31:17"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:16:22"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:16:24"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:22:02"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:22:03"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:24:50"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:24:52"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:33:06"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:33:08"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:33:15"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:33:16"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:33:31"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:33:32"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:33:51"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:33:52"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:34:12"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:34:13"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:39:36"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:39:39"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-06 11:44:49"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 11:44:57"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 11:44:59"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 12:12:30"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 12:12:30"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-06 12:25:10"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 12:25:10"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 13:45:02"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 13:45:04"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 13:45:11"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 13:45:13"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 14:04:09"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 14:04:11"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 14:07:10"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 14:07:11"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 14:07:13"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 14:21:12"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 14:21:13"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 14:22:08"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 14:22:09"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 16:03:45"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-06 16:03:56"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 16:03:56"}
+{"ip":"::ffff:10.201.88.73","level":"error","message":"Vendor validation failed: password: Password zaroori hai","method":"POST","stack":"ValidationError: Vendor validation failed: password: Password zaroori hai\n    at Document.invalidate (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\document.js:3381:32)\n    at C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\document.js:3142:17\n    at C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\schemaType.js:1443:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)","timestamp":"2026-07-06 16:08:48","url":"/api/auth/signup"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 16:11:28"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 16:11:29"}
+{"ip":"::ffff:10.201.88.73","level":"error","message":"Vendor validation failed: password: Password zaroori hai","method":"POST","stack":"ValidationError: Vendor validation failed: password: Password zaroori hai\n    at Document.invalidate (C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\document.js:3381:32)\n    at C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\document.js:3142:17\n    at C:\\Users\\yashk\\OneDrive\\Desktop\\Queue copy\\Backend\\node_modules\\mongoose\\lib\\schemaType.js:1443:9\n    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)","timestamp":"2026-07-06 16:11:30","url":"/api/auth/signup"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 16:12:53"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 16:12:54"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 18:13:38"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 18:13:40"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 18:15:16"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 18:15:18"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 19:29:13"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 19:29:15"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 19:29:37"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 19:29:38"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 20:24:41"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 20:24:43"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:06:35"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:06:35"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-06 21:06:46"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:06:46"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:13:57"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:13:57"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-06 21:15:17"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:15:18"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-06 21:17:41"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 21:17:50"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 21:17:51"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:23:52"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:23:52"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-06 21:24:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 21:24:03"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 21:55:49"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 21:55:50"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 22:01:31"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 22:01:33"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 22:04:11"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 22:04:12"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-06 22:07:10"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-06 22:07:11"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 22:29:30"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-06 22:29:30"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-07 11:53:25"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 11:53:25"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 11:55:45"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 11:55:45"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-07 12:07:11"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-07 12:07:13"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-07 12:07:59"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-07 12:08:01"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-07 12:10:45"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-07 12:11:02"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-07 12:11:03"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-07 12:11:32"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-07 12:11:41"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-07 12:11:42"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 13:06:25"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 13:06:25"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-07 13:07:53"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 13:07:54"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-07 15:15:39"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 15:16:38"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-07 15:34:21"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-07 15:34:31"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-07 15:34:32"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 16:02:54"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-07 18:08:41"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-08 15:15:28"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 15:15:28"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 16:13:22"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 16:13:22"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-08 16:13:33"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 16:13:33"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 16:56:44"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 16:56:45"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-08 19:56:35"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 19:56:47"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 21:00:44"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-08 21:00:44"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-09 11:23:33"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 11:23:33"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 12:33:16"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 12:33:16"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-09 12:33:27"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 12:33:27"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-09 12:37:06"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-09 12:37:08"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-09 12:37:22"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-09 12:37:23"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 14:15:54"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-09 14:16:05"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 14:16:05"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-09 14:24:07"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-09 14:24:09"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 15:45:33"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 15:45:33"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-09 15:45:44"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 15:45:45"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-09 16:47:19"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-09 16:47:20"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-09 18:12:59"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-09 18:13:01"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-09 18:44:13"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-09 18:44:15"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 20:57:31"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-09 20:57:32"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-10 15:01:49"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-10 15:01:50"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-10 16:26:05"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-10 16:26:16"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-10 16:26:16"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-10 17:02:58"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-10 17:08:32"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-10 17:08:32"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-10 18:35:47"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-10 18:35:58"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-10 19:02:31"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-10 19:02:42"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-11 14:42:25"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-11 14:42:25"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-11 15:11:42"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-11 15:11:52"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-11 15:12:05"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-11 15:12:15"}
+{"level":"error","message":"🔥 Graceful shutdown mein zyada time lag gaya. Forcing kill...","timestamp":"2026-07-11 15:12:15"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-11 15:12:17"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-11 20:24:06"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-11 20:24:16"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-11 20:24:16"}
+{"level":"info","message":"⚠️ SIGTERM ya SIGINT signal mila. Server shanti se band ho raha hai...","timestamp":"2026-07-11 20:25:08"}
+{"level":"info","message":"🔒 HTTP Server closed. Nayi API requests block kar di gayi hain.","timestamp":"2026-07-11 20:25:08"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-11 20:25:08"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-11 20:25:24"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-11 20:25:24"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-11 20:26:16"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-11 20:26:22"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-11 23:32:14"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-11 23:32:14"}
+{"level":"info","message":"✅ Environment Variables ekdum perfect hain!","timestamp":"2026-07-11 23:42:50"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-11 23:42:52"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-12 01:44:03"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-12 01:44:04"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-12 09:56:04"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-12 09:56:05"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-12 12:00:48"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-12 19:19:28"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-12 19:19:40"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-12 19:24:07"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-12 19:24:17"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-12 19:24:19"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-12 20:40:58"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-13 11:42:57"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 11:42:57"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-13 13:10:16"}
+{"level":"info","message":"HTTP Server closed. New API requests have been blocked.","timestamp":"2026-07-13 13:10:16"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-13 13:10:17"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-13 13:10:26"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-13 13:10:28"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 14:19:52"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:11:36"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:11:36"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-13 18:12:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:12:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:53:46"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:53:46"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-13 18:54:00"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:54:00"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:56:36"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:56:36"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-13 18:57:57"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 18:57:58"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 20:52:34"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-13 20:52:34"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-14 15:29:47"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-14 15:29:48"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-14 15:31:43"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-14 15:31:44"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-14 15:31:54"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-14 15:31:55"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-14 17:41:13"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-14 17:41:13"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-14 17:48:45"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-14 17:48:54"}
+{"level":"error","message":"Graceful shutdown took too long. Forcing termination...","timestamp":"2026-07-14 17:48:55"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-14 17:48:56"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-14 20:07:08"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-15 12:37:59"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 12:38:00"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-15 13:08:26"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-15 13:08:34"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-15 13:08:35"}
+{"level":"error","message":"Graceful shutdown took too long. Forcing termination...","timestamp":"2026-07-15 13:08:36"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 13:32:27"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-15 13:32:38"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 13:32:38"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 14:56:50"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-15 14:57:01"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 14:57:01"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 16:52:25"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 20:22:05"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-15 20:22:06"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-16 15:38:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-16 15:38:05"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-16 20:10:54"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-16 20:11:05"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-16 20:11:05"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-16 21:53:18"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-16 21:55:50"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-16 21:55:50"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-16 23:26:18"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-16 23:26:20"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 01:21:36"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-17 14:44:04"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 14:44:15"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 19:07:29"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 19:07:29"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-17 19:07:50"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 19:07:50"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 20:14:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 20:14:04"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-17 20:14:13"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-17 20:14:15"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-18 15:12:53"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-18 15:13:04"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-18 15:13:06"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-18 18:01:23"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-20 12:20:00"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-20 12:20:00"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-20 13:43:07"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-20 13:43:09"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-20 13:44:59"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-20 13:45:10"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-20 13:45:11"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-20 14:33:35"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-20 14:58:25"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-20 15:21:23"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-20 15:21:33"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-20 15:22:03"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-20 15:22:14"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-20 17:55:24"}
+{"level":"info","message":"HTTP Server closed. New API requests have been blocked.","timestamp":"2026-07-20 17:55:24"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-20 17:55:25"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 16:03:27"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-21 16:03:27"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 16:22:13"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-21 16:22:13"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 16:30:09"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-21 16:30:09"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 16:31:51"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 16:31:52"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-21 17:15:09"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:15:16"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:15:17"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:24:00"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:24:00"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:24:10"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:24:10"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:24:54"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:24:54"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:26:55"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:26:55"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:32:21"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:32:22"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:35:22"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:35:23"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-21 17:40:31"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:40:38"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:40:39"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 17:48:25"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 17:48:26"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 18:03:08"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 18:03:09"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-21 18:03:19"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-21 18:03:20"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-21 18:55:47"}
+{"level":"info","message":"🔄 MongoDB Reconnected! Network wapas aa gaya, sab safe hai.","timestamp":"2026-07-21 18:55:47"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-21 19:32:22"}
+{"level":"info","message":"HTTP Server closed. New API requests have been blocked.","timestamp":"2026-07-21 19:32:22"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-21 19:32:23"}
