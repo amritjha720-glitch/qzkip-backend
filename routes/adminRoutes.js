@@ -17,3 +17,5 @@ router.patch('/reject/:vendorId', adminAuth, adminController.rejectVendor);
 router.delete('/delete/:vendorId', adminAuth, adminController.deleteVendor);
 
 module.exports = router;
+
+// Forced update for Render
