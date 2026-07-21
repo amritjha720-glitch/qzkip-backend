@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
-const adminAuth = require('../middleware/adminAuth');
+const adminAuth = require('../middleware/adminAuthNew');
 
 // The login endpoint is unprotected
 router.post('/login', adminController.adminLogin);
