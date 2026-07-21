@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { protect } = require('../middleware/authMiddleware'); 
-const queueController = require('../controllers/queueController');
+const queueController = require('../controllers/queueControllerNew');
 
 // PUBLIC APIS
 router.post('/generate-token', queueController.generateToken);
