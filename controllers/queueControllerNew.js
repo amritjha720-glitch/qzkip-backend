@@ -353,22 +353,17 @@ exports.getAllShops = async (req, res) => {
   }
 };
 
+
 // ==========================================
 // 7. Get Customer History
 // ==========================================
 exports.getCustomerHistory = async (req, res) => {
   try {
     await autoCleanStuckTokens(); 
+    const { phone: googleUID } = req.params; // Frontend abhi bhi parameter 'phone' bhej raha hoga, par usme UID hogi
 
-    // The 'phone' parameter can now also receive a Google UID
-    const { phone } = req.params; 
-
-    // FIX: Using MongoDB $or operator to check both fields
     const myHistory = await Queue.find({
-      $or: [
-        { customer_phone: phone },
-        { googleUID: phone } // The 'phone' variable now contains the UID
-      ],
+      googleUID: googleUID, 
       hiddenFromCustomer: { $ne: true } 
     }).sort({ createdAt: -1 });
 
@@ -391,7 +386,7 @@ exports.getCustomerHistory = async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
   }
-};  
+};
 
 // ==========================================
 // 8. Hide History Entry (Customer)
@@ -420,28 +415,23 @@ exports.hideHistory = async (req, res) => {
 // ==========================================
 exports.cancelToken = async (req, res) => {
   try {
-    // Here customer_phone might also receive a UID from the frontend
-    const { qr_id, token_number, customer_phone } = req.body;
+    const { qr_id, token_number, customer_phone: googleUID } = req.body;
     
     const vendor = await Vendor.findOne({ qr_id });
     if (!vendor) return res.status(404).json({ success: false, message: 'Shop not found' });
 
     const startOfToday = getStartOfToday();
 
-    // UPDATED QUERY: Use $or to check both Phone OR UID
     const deletedToken = await Queue.findOneAndDelete({
       vendor_id: vendor._id,
       token_number: Number(token_number),
-      $or: [
-        { customer_phone: customer_phone }, // Old phone number check
-        { googleUID: customer_phone }       // New UID check (UID is coming in this field from the frontend)
-      ],
+      googleUID: googleUID, // Strict Google UID check
       status: { $in: ['waiting', 'skipped'] },
       createdAt: { $gte: startOfToday }
     });
 
     if (!deletedToken) {
-      return res.status(400).json({ success: false, message: 'Token not found or has already been processed' });
+      return res.status(400).json({ success: false, message: 'Token not found or already processed' });
     }
 
     const io = req.app.get('socketio');
@@ -449,64 +439,55 @@ exports.cancelToken = async (req, res) => {
 
     res.json({ success: true, message: 'Token cancelled successfully' });
   } catch (err) {
-    console.error("Cancel Error:", err);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };
+
 
 // ==========================================
 // 10. Generate WALK-IN Token (Vendor Panel)
 // ==========================================
 exports.addWalkInToken = async (req, res) => {
   try {
-    const vendor_id = req.vendor.vendorId; // Extracting from Auth middleware
-    const { customer_name, customer_phone } = req.body;
+    const vendor_id = req.vendor.vendorId; 
+    const { customer_name } = req.body; // Koi phone number nahi aayega ab
     const startOfToday = getStartOfToday();
 
     const vendor = await Vendor.findById(vendor_id);
     if (!vendor) return res.status(404).json({ success: false, message: 'Shop not found' });
+    if (vendor.is_open === false) return res.status(403).json({ success: false, message: 'Shop closed!' });
 
-    if (vendor.is_open === false) {
-      return res.status(403).json({ success: false, message: 'The shop is currently closed, please open the shop first!' });
-    }
-
-    // TOKEN COUNTER LOGIC
     const now = new Date();
     const todayString = now.toDateString(); 
     const lastResetString = vendor.stats.last_reset ? new Date(vendor.stats.last_reset).toDateString() : "";
 
     let currentCount = vendor.stats.daily_token_count || 0;
     if (todayString !== lastResetString) currentCount = 0; 
-
     const nextTokenNumber = currentCount + 1;
 
-    // SAVE NEW WALK-IN TOKEN TO DATABASE
+    // SAVE NEW WALK-IN TOKEN
     const newQueueItem = new Queue({
       vendor_id: vendor._id,
       customer_name: customer_name || 'Walk-in Customer',
-      customer_phone: customer_phone || '0000000000',
       token_number: nextTokenNumber,
       status: 'waiting',
       hiddenFromCustomer: false 
     });
     await newQueueItem.save();
 
-    // Update shop's token count
     await Vendor.findByIdAndUpdate(vendor._id, { 
       'stats.daily_token_count': nextTokenNumber,
       'stats.last_reset': now 
     });
 
-    // Send notification to the live screen
     const io = req.app.get('socketio');
     if (io) {
       io.emit(`vendor_${vendor._id}`, { action: 'refresh' });
-      io.emit('queueUpdate'); // To refresh timings for other people
+      io.emit('queueUpdate'); 
     }
 
     res.status(201).json({ success: true, token_number: nextTokenNumber, message: 'Walk-in token generated!' });
   } catch (error) {
-    console.error("Walk-in Token Error:", error);
     res.status(500).json({ success: false, message: 'Server error' });
   }
 };

@@ -6,7 +6,7 @@ const queueSchema = new mongoose.Schema({
     ref: 'Vendor', 
     required: true 
   },
-  // 🚀 NAYA FIELD: Google User ID trace karne ke liye
+  // NEW FIELD: To track the Google User ID
   googleUID: { 
     type: String 
   },
@@ -17,10 +17,7 @@ const queueSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  customer_phone: { 
-    type: String, 
-    required: false 
-  },
+ 
   token_number: { 
     type: Number, 
     required: true 

@@ -2,25 +2,17 @@ const mongoose = require('mongoose');
 
 const customerSchema = new mongoose.Schema({
   name: { type: String },
-  phone: { 
-    type: String, 
-    unique: true, 
-    sparse: true // Essential for walk-in customers (without phone numbers)
-  },
   
-  // NEW: Unique Google Auth ID (to prevent spam)
+  // Sirf Google UID rakhenge
   googleUID: { 
     type: String, 
     unique: true, 
-    sparse: true 
+    required: true 
   },
   
-  is_verified: { type: Boolean, default: false },
-  
-  // To identify walk-in guests
+  is_verified: { type: Boolean, default: true },
   device_id: { type: String }, 
   
-  // For the 'Recently Visited' list on the home page
   visited_shops: [{
     vendor_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor' },
     last_visited: { type: Date, default: Date.now }
