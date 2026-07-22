@@ -561,3 +561,28 @@
 {"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-21 19:32:22"}
 {"level":"info","message":"HTTP Server closed. New API requests have been blocked.","timestamp":"2026-07-21 19:32:22"}
 {"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-21 19:32:23"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 03:31:56"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-22 03:31:56"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 03:34:22"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-22 03:34:22"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 03:36:55"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-22 03:36:55"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 03:38:50"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-22 03:38:50"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 03:39:55"}
+{"level":"warn","message":"⚠️ MongoDB Disconnected! Connection drop ho gaya hai, hum retry kar rahe hain...","timestamp":"2026-07-22 03:39:56"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 03:41:25"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-22 03:41:26"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 10:38:27"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-22 10:38:27"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 10:51:50"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-22 10:51:51"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 10:54:23"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-22 10:54:24"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-22 11:01:14"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 11:01:20"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-22 11:01:20"}
+{"level":"info","message":"Environment variables successfully validated!","timestamp":"2026-07-22 11:23:37"}
+{"level":"info","message":"✅ MongoDB Connected Successfully: ac-mhckzsf-shard-00-00.nmvblwp.mongodb.net","timestamp":"2026-07-22 11:23:38"}
+{"level":"info","message":"Received SIGTERM or SIGINT signal. Shutting down server gracefully...","timestamp":"2026-07-22 11:35:43"}
+{"level":"info","message":"HTTP Server closed. New API requests have been blocked.","timestamp":"2026-07-22 11:35:43"}
