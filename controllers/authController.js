@@ -26,7 +26,6 @@ exports.googleVendorAuth = async (req, res, next) => {
   try {
     const { googleUID, email } = req.body;
 
-    // 🟢 SUPER FIX: Ab Google UID ya Email dono mein se kisi se bhi strict check hoga
     let vendor = await Vendor.findOne({ $or: [{ email }, { googleUID }] });
 
     // SCENARIO 1: Vendor exist hi nahi karta
@@ -35,7 +34,6 @@ exports.googleVendorAuth = async (req, res, next) => {
       return res.status(200).json({ success: true, action: 'SHOW_FORM' });
     }
 
-    // 🕵️‍♂️ TERMINAL TRACKER (Yeh aapko sach batayega ki DB mein kya save hai)
     console.log(`🔍 [AUTH CHECK] Email: ${vendor.email} | DB Status: '${vendor.status}'`);
 
     // SCENARIO 2: Strict Rejected Check
@@ -47,12 +45,22 @@ exports.googleVendorAuth = async (req, res, next) => {
     // SCENARIO 3: Strict Approved Check
     if (vendor.status === 'approved' || vendor.is_verified === true) {
       console.log(`✅ [AUTH] User Approved hai -> Dashboard kholo`);
+      
+      // Token Generate kiya
       const token = jwt.sign({ vendorId: vendor._id }, process.env.JWT_SECRET || 'Qzkip', { expiresIn: '365d' });
+
+      // 🔥 THE MAGIC FIX: Send Token directly into an HttpOnly Secure Cookie
+      res.cookie('vendorToken', token, {
+        httpOnly: true,    // Browser JavaScript (XSS) isko read nahi kar sakti
+        secure: true,      // Hamesha 'true' rahega kyunki Vercel aur Render dono HTTPS hain
+        sameSite: 'None',  // Cross-Origin request allow karne ke liye (Frontend Vercel -> Backend Render)
+        maxAge: 365 * 24 * 60 * 60 * 1000 // 1 Saal tak login rahega
+      });
 
       return res.status(200).json({ 
         success: true, 
         action: 'LOGIN_SUCCESS',
-        token,
+        token, // Backward compatibility ke liye JSON mein bhi rakha hai
         vendor: { id: vendor._id, shop_name: vendor.shop_name, qr_id: vendor.qr_id, email: vendor.email } 
       });
     }
@@ -78,7 +86,6 @@ exports.completeVendorProfile = async (req, res, next) => {
     let existingVendor = await Vendor.findOne({ email });
 
     if (existingVendor) {
-      // Re-apply logic (Agar admin ne pehle reject kiya tha)
       if (existingVendor.status === 'rejected') {
         
         const phoneCheck = await Vendor.findOne({ phone, email: { $ne: email } });
@@ -86,7 +93,6 @@ exports.completeVendorProfile = async (req, res, next) => {
           return res.status(400).json({ success: false, message: 'This Phone Number is already in use by another shop.' });
         }
 
-        // 🔥 THE BULLDOZER FIX: Yahan `.save()` hata kar Direct Force Update laga diya hai
         await Vendor.findOneAndUpdate(
           { email: email },
           {
@@ -95,11 +101,11 @@ exports.completeVendorProfile = async (req, res, next) => {
               phone: phone,
               shop_type: shop_type,
               kyc_details: { document_type, document_number },
-              status: 'pending', // 🟢 STRICTLY PENDING UPDATE
+              status: 'pending', 
               is_verified: false
             }
           },
-          { new: true } // Yeh ensure karega ki DB mein truly update ho
+          { new: true } 
         );
 
         console.log(`🟡 [FORM DB SUCCESS] User (${email}) Force Update HUA -> Ab strictly PENDING hai`);
@@ -109,7 +115,6 @@ exports.completeVendorProfile = async (req, res, next) => {
       }
     }
 
-    // Naya Vendor Save logic
     const phoneExists = await Vendor.findOne({ phone });
     if (phoneExists) {
       return res.status(400).json({ success: false, message: 'This Phone Number is already registered.' });
@@ -122,7 +127,7 @@ exports.completeVendorProfile = async (req, res, next) => {
       qr_id: unique_qr_id, shop_type,
       kyc_details: { document_type, document_number },
       is_verified: false,
-      status: 'pending' // 🟢 STRICT NEW DEFAULT PENDING
+      status: 'pending' 
     });
 
     await vendor.save();
@@ -135,4 +140,19 @@ exports.completeVendorProfile = async (req, res, next) => {
     }
     next(error); 
   }
+};
+
+
+// ==========================================
+// 3. Logout API (🔥 NAYA FUNCTION)
+// ==========================================
+// Frontend jab /logout par hit karega, toh hum yahan se cookie saaf kar denge
+exports.logoutVendor = (req, res) => {
+  res.clearCookie('vendorToken', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None'
+  });
+  console.log('🔴 [AUTH] Vendor Logged Out, Cookie Cleared');
+  res.status(200).json({ success: true, message: 'Logged out successfully' });
 };

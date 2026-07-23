@@ -11,6 +11,9 @@ const compression = require('compression');
 const mongoose = require('mongoose'); 
 const logger = require('./config/logger'); 
 
+// 🟢 FIX: Cookie Parser Added
+const cookieParser = require('cookie-parser'); 
+
 // Database, Env Validator, and Routes imports
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorMiddleware');
@@ -28,9 +31,19 @@ const app = express();
 // LAYER 1: Core Security & Parsing
 // ==========================================
 app.use(helmet()); 
-app.use(cors()); 
+
+// 🟢 FIX: CORS Updated for Cookies (Credentials: true)
+// Agar aapka frontend Vercel par hai, toh 'origin' mein uska exact URL daal dena production mein
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Update this with your actual frontend URL (e.g., https://qzkip.vercel.app)
+  credentials: true, // Zaroori hai cookies send/receive karne ke liye
+})); 
+
 app.use(compression());
 app.use(express.json());
+
+// 🟢 FIX: Use Cookie Parser
+app.use(cookieParser());
 
 // ==========================================
 // LAYER 2: Data Sanitization
@@ -56,10 +69,12 @@ const server = http.createServer(app);
 // ==========================================
 // LAYER 3: Socket.io Setup (Real-time Engine)
 // ==========================================
+// 🟢 FIX: Socket.io CORS also needs credentials if using cookies for sockets later
 const io = new Server(server, {
   cors: {
-    origin: "*", 
-    methods: ["GET", "POST", "PATCH"]
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000', 
+    methods: ["GET", "POST", "PATCH"],
+    credentials: true 
   }
 });
 

@@ -22,4 +22,7 @@ router.post('/google', apiLimiter, validateGoogleAuth, authController.googleVend
 // 2. KYC Form Submit
 router.post('/complete-profile', apiLimiter, validateVendorProfile, authController.completeVendorProfile);
 
+// 3. 🟢 NAYA ROUTE: Logout & Clear Cookie
+router.post('/logout', authController.logoutVendor);
+
 module.exports = router;
