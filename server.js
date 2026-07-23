@@ -34,6 +34,8 @@ app.use(helmet());
 
 // 🟢 FIX: CORS Updated for Cookies (Credentials: true)
 // Agar aapka frontend Vercel par hai, toh 'origin' mein uska exact URL daal dena production mein
+
+const allowedOrigins = ['http://localhost:3000', 'https://qzkip-frontend.vercel.app'];
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Update this with your actual frontend URL (e.g., https://qzkip.vercel.app)
   credentials: true, // Zaroori hai cookies send/receive karne ke liye
@@ -72,7 +74,8 @@ const server = http.createServer(app);
 // 🟢 FIX: Socket.io CORS also needs credentials if using cookies for sockets later
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', 
+    // 🔥 THE FIX: Array mein Localhost aur Vercel dono URLs daal diye
+    origin: ['http://localhost:3000', 'https://qzkip-frontend.vercel.app'], 
     methods: ["GET", "POST", "PATCH"],
     credentials: true 
   }
