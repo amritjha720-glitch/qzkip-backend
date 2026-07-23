@@ -37,9 +37,16 @@ app.use(helmet());
 
 const allowedOrigins = ['http://localhost:3000', 'https://qzkip-frontend.vercel.app'];
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Update this with your actual frontend URL (e.g., https://qzkip.vercel.app)
-  credentials: true, // Zaroori hai cookies send/receive karne ke liye
-})); 
+  origin: function (origin, callback) {
+    // Agar request allowed origin se aa rahi hai, ya postman/server-to-server (no origin) se hai
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('CORS policy error: Origin not allowed'));
+    }
+  },
+  credentials: true, // Zaroori hai cookies ke liye
+}));
 
 app.use(compression());
 app.use(express.json());
