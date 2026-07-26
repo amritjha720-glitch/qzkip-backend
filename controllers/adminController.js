@@ -16,10 +16,14 @@ exports.adminLogin = (req, res) => {
 exports.getPendingVendors = async (req, res) => {
   try {
     // 🟢 FIXED: Ab admin ko wo bhi dikhenge jo naye hain (pending) aur jo galti kar chuke hain (rejected)
-    const pendingVendors = await Vendor.find({ status: { $in: ['pending', 'rejected'] } }).select('-password');
+    // Password ki jagah humne googleUID ko minus (-) kar diya
+    const pendingVendors = await Vendor.find({ status: { $in: ['pending', 'rejected'] } })
+      .select('-googleUID');
     res.status(200).json({ success: true, count: pendingVendors.length, data: pendingVendors });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
+        logger.error(error.message)
+
   }
 };
 
@@ -29,11 +33,12 @@ exports.approveVendor = async (req, res) => {
     const { vendorId } = req.params;
     // 🟢 FIXED: is_verified ke sath 'status: approved' bhi set kar diya
     const vendor = await Vendor.findByIdAndUpdate(vendorId, { is_verified: true, status: 'approved' }, { new: true });
-    
+
     if (!vendor) return res.status(404).json({ success: false, message: 'Vendor not found' });
     res.status(200).json({ success: true, message: `${vendor.shop_name} has been successfully approved!` });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
+    logger.error(error.message)
   }
 };
 
@@ -46,6 +51,9 @@ exports.rejectVendor = async (req, res) => {
     res.status(200).json({ success: true, message: `${vendor.shop_name} has been rejected. They can re-apply.` });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
+        logger.error(error.message)
+
+    
   }
 };
 
@@ -57,5 +65,7 @@ exports.deleteVendor = async (req, res) => {
     res.status(200).json({ success: true, message: 'Spammer permanently deleted from database.' });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' });
+        logger.error(error.message)
+
   }
 };

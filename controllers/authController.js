@@ -1,21 +1,15 @@
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto'); // 🟢 NAYA: Crypto package add kiya fast QR generation ke liye
 const Vendor = require('../models/Vendor');
 
-// Helper Function: Unique QR ID Generator
-const generateUniqueQRID = async (shop_name) => {
+// ==========================================
+// Helper Function: FAST Unique QR ID Generator (No Loop, No DB Call)
+// ==========================================
+const generateUniqueQRID = (shop_name) => {
   const cleanName = shop_name.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 8);
-  let isUnique = false;
-  let finalID = "";
-
-  while (!isUnique) {
-    const randomDigits = Math.floor(1000 + Math.random() * 9000); 
-    finalID = `${cleanName}-${randomDigits}`;
-    const existingVendor = await Vendor.findOne({ qr_id: finalID });
-    if (!existingVendor) {
-      isUnique = true; 
-    }
-  }
-  return finalID;
+  // 4 bytes = 8 random characters (e.g., 'a1b2c3d4'). Extremely rare chance of duplicate.
+  const randomString = crypto.randomBytes(4).toString('hex');
+  return `${cleanName}-${randomString}`;
 };
 
 
@@ -45,7 +39,7 @@ exports.googleVendorAuth = async (req, res, next) => {
     // SCENARIO 3: Strict Approved Check
     if (vendor.status === 'approved' || vendor.is_verified === true) {
       console.log(`✅ [AUTH] User Approved hai -> Dashboard kholo`);
-      
+
       // Token Generate kiya
       const token = jwt.sign({ vendorId: vendor._id }, process.env.JWT_SECRET || 'Qzkip', { expiresIn: '365d' });
 
@@ -57,11 +51,11 @@ exports.googleVendorAuth = async (req, res, next) => {
         maxAge: 365 * 24 * 60 * 60 * 1000 // 1 Saal tak login rahega
       });
 
-      return res.status(200).json({ 
-        success: true, 
+      return res.status(200).json({
+        success: true,
         action: 'LOGIN_SUCCESS',
         token, // Backward compatibility ke liye JSON mein bhi rakha hai
-        vendor: { id: vendor._id, shop_name: vendor.shop_name, qr_id: vendor.qr_id, email: vendor.email } 
+        vendor: { id: vendor._id, shop_name: vendor.shop_name, qr_id: vendor.qr_id, email: vendor.email }
       });
     }
 
@@ -87,7 +81,7 @@ exports.completeVendorProfile = async (req, res, next) => {
 
     if (existingVendor) {
       if (existingVendor.status === 'rejected') {
-        
+
         const phoneCheck = await Vendor.findOne({ phone, email: { $ne: email } });
         if (phoneCheck) {
           return res.status(400).json({ success: false, message: 'This Phone Number is already in use by another shop.' });
@@ -101,11 +95,11 @@ exports.completeVendorProfile = async (req, res, next) => {
               phone: phone,
               shop_type: shop_type,
               kyc_details: { document_type, document_number },
-              status: 'pending', 
+              status: 'pending',
               is_verified: false
             }
           },
-          { new: true } 
+          { new: true }
         );
 
         console.log(`🟡 [FORM DB SUCCESS] User (${email}) Force Update HUA -> Ab strictly PENDING hai`);
@@ -120,14 +114,15 @@ exports.completeVendorProfile = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'This Phone Number is already registered.' });
     }
 
-    const unique_qr_id = await generateUniqueQRID(shop_name);
-    
+    // 🟢 UPDATED: Ab function instantly ID generate karega bina await ke
+    const unique_qr_id = generateUniqueQRID(shop_name);
+
     const vendor = new Vendor({
-      googleUID, email, name, shop_name, phone, 
+      googleUID, email, name, shop_name, phone,
       qr_id: unique_qr_id, shop_type,
       kyc_details: { document_type, document_number },
       is_verified: false,
-      status: 'pending' 
+      status: 'pending'
     });
 
     await vendor.save();
@@ -136,9 +131,9 @@ exports.completeVendorProfile = async (req, res, next) => {
 
   } catch (error) {
     if (error.code === 11000) {
-       return res.status(400).json({ success: false, message: 'Duplicate data error. Please check your details.' });
+      return res.status(400).json({ success: false, message: 'Duplicate data error. Please check your details or try submitting again.' });
     }
-    next(error); 
+    next(error);
   }
 };
 
