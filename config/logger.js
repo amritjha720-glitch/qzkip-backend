@@ -7,30 +7,27 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Appends timestamp to every log entry
     winston.format.errors({ stack: true }), // Captures the full error stack trace if available
-    winston.format.json() // Saves data in JSON format for easier parsing in production
+    winston.format.json() // Saves data in JSON format for files
   ),
   transports: [
-    // 1. All CRITICAL ERRORS will be routed to this file
+    // 1. Files mein save hoga (Paid server par internal backup ke liye accha hai)
     new winston.transports.File({ 
       filename: path.join(__dirname, '../logs/error.log'), 
       level: 'error' 
     }),
-    // 2. All standard logs (info, warn, error) will be routed to this file
     new winston.transports.File({ 
       filename: path.join(__dirname, '../logs/combined.log') 
+    }),
+    
+    // 2. 🟢 NAYA UPDATE: Console hamesha on rahega!
+    // Isse Render ki black screen par 24x7 live logs dikhenge.
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(), // Render dashboard aur VS Code par colors dikhayega
+        winston.format.simple() // Padhne mein aasan (simple) format
+      )
     })
   ]
 });
-
-// IF THE SERVER IS RUNNING LOCALLY (Development Mode)
-// Logs should also be displayed in the terminal with color formatting
-if (process.env.NODE_ENV !== 'production') {
-  logger.add(new winston.transports.Console({
-    format: winston.format.combine(
-      winston.format.colorize(), // Displays colored output (red, green, yellow) in the terminal
-      winston.format.simple() // Simple and readable format
-    )
-  }));
-}
 
 module.exports = logger;
