@@ -33,25 +33,20 @@ const app = express();
 app.use(helmet()); 
 
 // 🟢 FIX: CORS Updated for Cookies (Credentials: true)
-// Agar aapka frontend Vercel par hai, toh 'origin' mein uska exact URL daal dena production mein
-
 const allowedOrigins = ['http://localhost:3000', 'https://qzkip-frontend.vercel.app'];
 app.use(cors({
   origin: function (origin, callback) {
-    // Agar request allowed origin se aa rahi hai, ya postman/server-to-server (no origin) se hai
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('CORS policy error: Origin not allowed'));
     }
   },
-  credentials: true, // Zaroori hai cookies ke liye
+  credentials: true, 
 }));
 
 app.use(compression());
 app.use(express.json());
-
-// 🟢 FIX: Use Cookie Parser
 app.use(cookieParser());
 
 // ==========================================
@@ -78,10 +73,8 @@ const server = http.createServer(app);
 // ==========================================
 // LAYER 3: Socket.io Setup (Real-time Engine)
 // ==========================================
-// 🟢 FIX: Socket.io CORS also needs credentials if using cookies for sockets later
 const io = new Server(server, {
   cors: {
-    // 🔥 THE FIX: Array mein Localhost aur Vercel dono URLs daal diye
     origin: ['http://localhost:3000', 'https://qzkip-frontend.vercel.app'], 
     methods: ["GET", "POST", "PATCH"],
     credentials: true 
@@ -100,10 +93,8 @@ app.set('socketio', io);
 // ==========================================
 // LAYER 4: HYBRID RATE LIMITER
 // ==========================================
-
-// 4A: Global IP Limiter (For DDOS Protection)
 const globalIpLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000, 
   max: 200, 
   message: { 
     success: false, 
@@ -111,8 +102,6 @@ const globalIpLimiter = rateLimit({
   }
 });
 app.use('/api/', globalIpLimiter); 
-
-// NOTE: 4B (phoneAuthLimiter) has been removed from here.
 
 
 // ==========================================
@@ -129,19 +118,17 @@ app.get('/api/health', (req, res) => {
 
 
 // ==========================================
-// LAYER 6: API Routes 
+// LAYER 6: API Routes (🟢 CLEANED UP)
 // ==========================================
 const authRoutes = require('./routes/authRoutes');
 const vendorRoutes = require('./routes/vendorRoutes');
 const queueRoutes = require('./routes/queueRoutesNew');
 const menuRoutes = require('./routes/menuRoutes');
-const customerRoutes = require('./routes/customerRoutes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/vendor', vendorRoutes);
 app.use('/api/queue', queueRoutes);
 app.use('/api/menu', menuRoutes);
-app.use('/api/customer', customerRoutes);
 app.use('/api/admin', adminRoutes); 
 
 app.use(errorHandler); 
