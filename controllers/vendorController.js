@@ -1,34 +1,63 @@
 const Vendor = require('../models/Vendor');
-const Queue = require('../models/Queue'); // We will create this model later
+const Queue = require('../models/Queue');
+const mongoose = require('mongoose'); 
+const logger = require('../config/logger'); // 🟢 FIXED: Path is now correct according to your folder structure
+const moment = require('moment-timezone'); // 🟢 IST Timezone helper
 
-// PRO TIP: We have already created a robust OTP-based 'signup' in 'authController.js'. 
-// Therefore, this 'register' function might not be needed anymore. However, it has been kept error-free for now.
+// HELPER: Gets 00:00:00 of today strictly in India Time (IST)
+const getStartOfToday = () => {
+  return moment.tz("Asia/Kolkata").startOf('day').toDate();
+};
+
+// ==========================================
+// 1. Register Vendor (🟢 FIXED: Schema Validation Mismatch)
+// Note: Normally authController is handling registration, but if you use this directly, it's now safe.
+// ==========================================
 exports.register = async (req, res, next) => {
   try {
-    const { shop_name, phone, qr_id } = req.body;
-    let vendor = await Vendor.findOne({ phone });
-    if (vendor) return res.status(400).json({ success: false, message: 'Number already exists!' });
+    // 🟢 ADDED: googleUID, email, and shop_type to prevent Mongoose Validation Crash
+    const { googleUID, email, shop_name, phone, qr_id, shop_type } = req.body;
     
-    vendor = new Vendor({ shop_name, phone, qr_id });
+    const vendorExists = await Vendor.findOne({ $or: [{ phone }, { email }, { googleUID }] }).lean();
+    if (vendorExists) {
+      return res.status(400).json({ success: false, message: 'Vendor with this Phone, Email, or GoogleUID already exists!' });
+    }
+    
+    const vendor = new Vendor({ 
+      googleUID, 
+      email, 
+      shop_name, 
+      phone, 
+      qr_id, 
+      shop_type // Required as per your Vendor.js schema
+    });
+    
     await vendor.save();
+    
     res.status(201).json({ success: true, message: 'Vendor registered successfully!' });
   } catch (error) {
-    next(error); // Global Error Handler
+    logger.error(`[REGISTER ERROR]: ${error.message}`);
+    next(error);
   }
 };
 
+// ==========================================
+// 2. Toggle Status (Solid Logic)
+// ==========================================
 exports.toggleStatus = async (req, res, next) => {
   try {
-    // FIX: Used req.vendorId instead of req.vendor.vendorId
-    const vendor = await Vendor.findById(req.vendorId);
+    const vendor_id = req.vendor?.vendorId || req.vendorId; // Hybrid safety
+
+    // Excellent use of Aggregation Pipeline in update to toggle boolean!
+    const vendor = await Vendor.findByIdAndUpdate(
+      vendor_id, 
+      [ { $set: { is_open: { $not: "$is_open" } } } ], 
+      { new: true }
+    );
     
     if (!vendor) {
       return res.status(404).json({ success: false, message: 'Vendor not found!' });
     }
-
-    // Toggle the status (True to False, False to True)
-    vendor.is_open = !vendor.is_open;
-    await vendor.save();
     
     res.json({ 
       success: true, 
@@ -36,44 +65,56 @@ exports.toggleStatus = async (req, res, next) => {
       message: `Shop is now ${vendor.is_open ? 'OPEN' : 'CLOSED'}.` 
     });
   } catch (error) {
+    logger.error(`[TOGGLE STATUS ERROR]: ${error.message}`);
     next(error);
   }
 };
 
+// ==========================================
+// 3. Get Analytics (🟢 FIXED: Ghost fields & Timezone)
+// ==========================================
 exports.getAnalytics = async (req, res, next) => {
   try {
-    // FIX: Applied req.vendorId
-    const vendorId = req.vendorId;
-    const startOfToday = new Date();
-    
-    // Resetting time in JS dates (setting to Midnight) - Perfect for daily analytics
-    startOfToday.setHours(0, 0, 0, 0); 
+    const vendor_id = req.vendor?.vendorId || req.vendorId;
+    const startOfToday = getStartOfToday(); 
 
-    const todayOrders = await Queue.find({
-      vendor_id: vendorId,
-      createdAt: { $gte: startOfToday }
-    });
+    const vendorObjectId = new mongoose.Types.ObjectId(vendor_id);
 
-    let totalOrders = todayOrders.length;
-    let completedOrders = 0;
-    let totalEarnings = 0;
+    const stats = await Queue.aggregate([
+      {
+        $match: {
+          vendor_id: vendorObjectId, 
+          createdAt: { $gte: startOfToday }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          total_footfall: { $sum: 1 },
+          completed: { $sum: { $cond: [{ $eq: ["$status", "completed"] }, 1, 0] } },
+          
+          // ⚠️ WARNING: 'is_paid' and 'total_amount' do NOT exist in Queue.js model yet.
+          // I have left the logic intact just in case you plan to add them to Queue.js later.
+          // Otherwise, it will safely return 0 without crashing.
+          totalEarnings: { $sum: { $cond: [{ $eq: ["$is_paid", true] }, "$total_amount", 0] } }
+        }
+      }
+    ]);
 
-    todayOrders.forEach(order => {
-      if (order.status === 'completed') completedOrders++;
-      // This logic will work perfectly once payments are integrated
-      if (order.is_paid === true) totalEarnings += order.total_amount;
-    });
+    const data = stats.length > 0 ? stats[0] : { total_footfall: 0, completed: 0, totalEarnings: 0 };
 
     res.json({
       success: true,
       data: {
-        date: new Date().toLocaleDateString('en-IN'), // Indian format (DD/MM/YYYY)
-        total_footfall: totalOrders,
-        completed: completedOrders,
-        revenue: `₹${totalEarnings}`
+        // 🟢 FIXED: Using moment.js to strictly format date in IST, avoiding server UTC bugs
+        date: moment.tz("Asia/Kolkata").format('DD/MM/YYYY'), 
+        total_footfall: data.total_footfall,
+        completed: data.completed,
+        revenue: `₹${data.totalEarnings || 0}` // Will be ₹0 until Queue model is updated with payment fields
       }
     });
   } catch (error) {
+    logger.error(`[ANALYTICS ERROR]: ${error.message}`);
     next(error);
   }
 };

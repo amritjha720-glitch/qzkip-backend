@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: "smartqueue-backend",          // Name of your application
+    name: "Qzkip-backend",          // Name of your application
     script: "./server.js",               // Main entry file to execute
     watch: false,                        // Disable auto-restart on code changes in production
     max_memory_restart: "1G",            // Restart if server exceeds 1GB RAM to prevent hanging

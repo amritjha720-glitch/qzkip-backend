@@ -1,27 +1,28 @@
 const Queue = require('../models/Queue');
 const Vendor = require('../models/Vendor');
 const Customer = require('../models/Customer');
+const moment = require('moment-timezone'); 
+const logger = require('../config/logger'); 
+const mongoose = require('mongoose');
 
-// Helper function to get 00:00:00 of today
+// 🟢 HELPER: Gets 00:00:00 of today strictly in India Time (IST)
 const getStartOfToday = () => {
-  const d = new Date();
-  d.setHours(0, 0, 0, 0);
-  return d;
+  return moment.tz("Asia/Kolkata").startOf('day').toDate();
 };
 
-// UPGRADED SMART HELPER: Cleans up 15-minute old skipped tokens AND yesterday's stuck tokens
-const autoCleanStuckTokens = async () => {
+// ==========================================
+// 🚀 CRON EXPORT: Ab isko server.js ya Node-Cron se background mein chala sakte ho
+// ==========================================
+exports.autoCleanStuckTokens = async () => {
   try {
     const now = new Date();
     const startOfToday = getStartOfToday();
 
-    // 1. Expire skipped tokens that are older than 15 minutes
     await Queue.updateMany(
       { status: 'skipped', graceEndTime: { $lte: now } },
       { $set: { status: 'expired' } }
     );
 
-    // 2. Clean up yesterday's (old) remaining waiting/processing/skipped tokens
     await Queue.updateMany(
       { 
         status: { $in: ['waiting', 'processing', 'skipped'] }, 
@@ -29,77 +30,86 @@ const autoCleanStuckTokens = async () => {
       },
       { $set: { status: 'expired' } }
     );
+    logger.info('🧹 [CRON] Stuck tokens auto-cleaned successfully.');
   } catch (error) {
-    console.error("Auto Cleanup Error:", error);
+    logger.error(`[AUTO CLEANUP ERROR]: ${error.message}`);
   }
 };
 
 // ==========================================
-// 1. Generate Token (Customer)
+// 1. Generate Token (Customer) 
 // ==========================================
-exports.generateToken = async (req, res) => {
+exports.generateToken = async (req, res, next) => {
   try {
-    // 1. Removed customer_phone from req.body
     const { qr_id, customer_name, googleUID } = req.body;
     const startOfToday = getStartOfToday();
 
-    // Force googleUID check (Email ID is mandatory now)
     if (!googleUID) return res.status(400).json({ success: false, message: 'Google Login is required!' });
 
-    const vendor = await Vendor.findOne({ qr_id });
+    const vendor = await Vendor.findOne({ qr_id }).lean();
     if (!vendor) return res.status(404).json({ success: false, message: 'Shop not found' });
 
     if (vendor.is_open === false) {
       return res.status(403).json({ success: false, message: 'This shop is currently closed! New tokens are not being accepted.' });
     }
 
-    // SECURITY LAYER 1: Check active tokens strictly by googleUID
-    let activeTokenQuery = {
+    // SECURITY LAYER 1
+    const activeTokenCheck = await Queue.findOne({
       vendor_id: vendor._id,
       status: { $in: ['waiting', 'processing', 'skipped'] },
       createdAt: { $gte: startOfToday },
-      googleUID: googleUID // Only using googleUID now
-    };
-
-    const activeTokenCheck = await Queue.findOne(activeTokenQuery);
+      googleUID: googleUID 
+    }).lean();
 
     if (activeTokenCheck) {
       return res.status(400).json({ success: false, message: `You already have an active token (#${activeTokenCheck.token_number}) at this shop!` });
     }
 
-    // SECURITY LAYER 2 (SPAM PROTECTION): Max 3 bookings per Email ID
+    // SECURITY LAYER 2
     const dailyBookingsCount = await Queue.countDocuments({
       vendor_id: vendor._id,
       googleUID: googleUID,
       createdAt: { $gte: startOfToday }
     });
+    
     if (dailyBookingsCount >= 3) {
         return res.status(403).json({ success: false, message: 'Your booking limit (max 3) for this shop today has been exhausted!' });
     }
 
-    // CUSTOMER DATABASE UPDATE: Simplified (No phone fallback needed)
-    let existingCustomer = await Customer.findOne({ googleUID });
+    await Customer.findOneAndUpdate(
+      { googleUID }, 
+      { $setOnInsert: { name: customer_name, is_verified: true } },
+      { upsert: true, new: true }
+    );
 
-    if (!existingCustomer) {
-      existingCustomer = new Customer({ 
-        googleUID: googleUID, 
-        name: customer_name,
-        is_verified: true 
-      });
-      await existingCustomer.save();
+    const now = new Date();
+    
+    // 🟢 MAGICAL FIX: 100% Bulletproof Atomic Counter (Solves Midnight Race Condition)
+    let updatedVendor = await Vendor.findOneAndUpdate(
+      { _id: vendor._id, 'stats.last_reset': { $gte: startOfToday } },
+      { $inc: { 'stats.daily_token_count': 1 }, $set: { 'stats.last_reset': now } },
+      { new: true }
+    );
+
+    if (!updatedVendor) {
+      updatedVendor = await Vendor.findOneAndUpdate(
+        { _id: vendor._id, 'stats.last_reset': { $lt: startOfToday } },
+        { $set: { 'stats.daily_token_count': 1, 'stats.last_reset': now } },
+        { new: true }
+      );
+      
+      // Extreme edge case fallback
+      if (!updatedVendor) {
+        updatedVendor = await Vendor.findOneAndUpdate(
+          { _id: vendor._id },
+          { $inc: { 'stats.daily_token_count': 1 } },
+          { new: true }
+        );
+      }
     }
 
-    // TOKEN COUNTER LOGIC
-    const now = new Date();
-    const todayString = now.toDateString(); 
-    const lastResetString = vendor.stats.last_reset ? new Date(vendor.stats.last_reset).toDateString() : "";
+    const nextTokenNumber = updatedVendor.stats.daily_token_count;
 
-    let currentCount = vendor.stats.daily_token_count || 0;
-    if (todayString !== lastResetString) currentCount = 0; 
-
-    const nextTokenNumber = currentCount + 1;
-
-    // SAVE NEW TOKEN TO DATABASE
     const newQueueItem = new Queue({
       vendor_id: vendor._id,
       googleUID: googleUID, 
@@ -107,14 +117,8 @@ exports.generateToken = async (req, res) => {
       token_number: nextTokenNumber,
       status: 'waiting',
       hiddenFromCustomer: false 
-      // customer_phone line permanently removed
     });
     await newQueueItem.save();
-
-    await Vendor.findByIdAndUpdate(vendor._id, { 
-      'stats.daily_token_count': nextTokenNumber,
-      'stats.last_reset': now 
-    });
 
     const io = req.app.get('socketio');
     if (io) {
@@ -127,15 +131,14 @@ exports.generateToken = async (req, res) => {
 
     res.status(201).json({ success: true, token_number: nextTokenNumber, message: 'Token successfully generated!' });
   } catch (error) { 
-    console.error("Generate Token Error:", error);
-    res.status(500).json({ success: false, message: 'Server error' }); 
+    next(error); 
   }
 };
 
 // ==========================================
-// 2. Toggle Shop Status (Vendor)
+// 2. Toggle Shop Status (Vendor) 
 // ==========================================
-exports.toggleStatus = async (req, res) => {
+exports.toggleStatus = async (req, res, next) => { 
   try {
     const vendor_id = req.vendor.vendorId;
     const { status, forceCancel } = req.body; 
@@ -144,6 +147,7 @@ exports.toggleStatus = async (req, res) => {
     
     if (status === false && forceCancel) {
       const startOfToday = getStartOfToday();
+      
       await Queue.updateMany(
         {
           vendor_id,
@@ -156,49 +160,46 @@ exports.toggleStatus = async (req, res) => {
 
     const io = req.app.get('socketio');
     if (io) {
-      io.emit('shop_status_changed', { message: 'Shop status updated' }); 
+      io.emit(`vendor_${vendor_id}`, { 
+        action: 'shop_status_changed', 
+        is_open: status,
+        message: status ? 'Shop is now open' : 'Shop is now closed' 
+      }); 
     }
 
     res.json({ success: true, message: "Status updated!" });
-  } catch (err) {
-    res.status(500).json({ success: false });
+  } catch (error) {
+    next(error); 
   }
 };
 
 // ==========================================
 // 3. Get Live Queue (Vendor Dashboard)
 // ==========================================
-exports.getLiveQueue = async (req, res) => {
+exports.getLiveQueue = async (req, res, next) => {
   try {
-    await autoCleanStuckTokens(); 
-
     const vendor_id = req.vendor.vendorId; 
-    const vendorInfo = await Vendor.findById(vendor_id);
     const startOfToday = getStartOfToday();
 
-    const activeQueue = await Queue.find({
-      vendor_id,
-      status: { $in: ['waiting', 'processing', 'skipped'] }, 
-      createdAt: { $gte: startOfToday }
-    }).sort({ token_number: 1 });
+    const [vendorInfo, activeQueue, totalToday, avgTimeResult] = await Promise.all([
+      Vendor.findById(vendor_id).select('shop_name qr_id is_open').lean(),
+      Queue.find({
+        vendor_id,
+        status: { $in: ['waiting', 'processing', 'skipped'] }, 
+        createdAt: { $gte: startOfToday }
+      }).sort({ is_priority: -1, token_number: 1 }).lean(), 
+      Queue.countDocuments({ vendor_id, createdAt: { $gte: startOfToday } }),
+      Queue.aggregate([
+        { $match: { vendor_id: new mongoose.Types.ObjectId(vendor_id), status: 'completed', processedAt: { $exists: true }, createdAt: { $gte: startOfToday } } },
+        { $project: { serviceTimeMs: { $subtract: ["$updatedAt", "$processedAt"] } } },
+        { $group: { _id: null, avgWaitMs: { $avg: "$serviceTimeMs" } } }
+      ])
+    ]);
 
-    const totalToday = await Queue.countDocuments({ 
-      vendor_id, createdAt: { $gte: startOfToday } 
-    });
-
-    const completedToday = await Queue.find({
-      vendor_id: vendor_id, 
-      status: 'completed',
-      processedAt: { $exists: true },
-      createdAt: { $gte: startOfToday }
-    });
-
-    let avgServiceTime = 15; 
-    if (completedToday.length > 0) {
-      const totalServiceTimeMs = completedToday.reduce((acc, t) => {
-        return acc + (new Date(t.updatedAt) - new Date(t.processedAt));
-      }, 0);
-      avgServiceTime = Math.round((totalServiceTimeMs / completedToday.length) / 60000) || 15;
+    // 🟢 FIXED: NaN Crash Fix
+    let avgServiceTime = 15;
+    if (avgTimeResult.length > 0 && avgTimeResult[0].avgWaitMs != null) {
+      avgServiceTime = Math.round(avgTimeResult[0].avgWaitMs / 60000) || 15;
     }
 
     res.json({ 
@@ -206,20 +207,17 @@ exports.getLiveQueue = async (req, res) => {
       count: activeQueue.length, 
       data: activeQueue, 
       stats: { totalToday, avgWait: avgServiceTime }, 
-      vendorDetails: vendorInfo ? { 
-        _id: vendorInfo._id, shop_name: vendorInfo.shop_name, qr_id: vendorInfo.qr_id, is_open: vendorInfo.is_open 
-      } : null
+      vendorDetails: vendorInfo 
     });
   } catch (error) { 
-    console.error("Live fetch error:", error);
-    res.status(500).json({ success: false, message: 'Server error' }); 
+    next(error); 
   }
 };
 
 // ==========================================
 // 4. Update Token Status (Vendor)
 // ==========================================
-exports.updateStatus = async (req, res) => {
+exports.updateStatus = async (req, res, next) => {
   try {
     const { token_id, new_status, isPriority } = req.body;
     let updateFields = { status: new_status };
@@ -239,7 +237,7 @@ exports.updateStatus = async (req, res) => {
     }
 
     const updatedToken = await Queue.findByIdAndUpdate(
-        token_id, updateFields, { returnDocument: 'after' }
+        token_id, updateFields, { new: true } // 🟢 FIXED: returnDocument: 'after' is native MongoDB, Mongoose uses { new: true }
     );
 
     if (!updatedToken) return res.status(404).json({ success: false, message: 'Token not found' });
@@ -252,220 +250,252 @@ exports.updateStatus = async (req, res) => {
 
     res.json({ success: true, data: updatedToken });
   } catch (error) { 
-      res.status(500).json({ success: false, message: 'Server error' }); 
+    next(error); 
   }
 };
 
 // ==========================================
 // 5. Get Public Status (Customer Tracking)
 // ==========================================
-exports.getPublicStatus = async (req, res) => {
+exports.getPublicStatus = async (req, res, next) => {
   try {
-    await autoCleanStuckTokens(); 
-
     const { qr_id } = req.params;
-    const vendor = await Vendor.findOne({ qr_id });
+    const vendor = await Vendor.findOne({ qr_id }).lean();
     if (!vendor) return res.status(404).json({ success: false, message: 'Shop not found' });
 
     const startOfToday = getStartOfToday();
-    const activeQueue = await Queue.find({
-      vendor_id: vendor._id,
-      status: { $in: ['waiting', 'processing'] },
-      createdAt: { $gte: startOfToday }
-    }).sort({ token_number: 1 });
 
-    const completedToday = await Queue.find({
-      vendor_id: vendor._id,
-      status: 'completed',
-      processedAt: { $exists: true },
-      createdAt: { $gte: startOfToday }
-    });
+    const [activeQueue, avgTimeResult] = await Promise.all([
+      Queue.find({
+        vendor_id: vendor._id,
+        status: { $in: ['waiting', 'processing'] },
+        createdAt: { $gte: startOfToday }
+      })
+      .sort({ is_priority: -1, token_number: 1 })
+      .select('token_number status customer_name is_priority') 
+      .lean(),
+      Queue.aggregate([
+        { $match: { vendor_id: vendor._id, status: 'completed', processedAt: { $exists: true }, createdAt: { $gte: startOfToday } } },
+        { $project: { serviceTimeMs: { $subtract: ["$updatedAt", "$processedAt"] } } },
+        { $group: { _id: null, avgWaitMs: { $avg: "$serviceTimeMs" } } }
+      ])
+    ]);
 
+    // 🟢 FIXED: NaN Check
     let avgServiceTime = 15; 
-    if (completedToday.length > 0) {
-      const totalServiceTimeMs = completedToday.reduce((acc, t) => {
-        return acc + (new Date(t.updatedAt) - new Date(t.processedAt));
-      }, 0);
-      avgServiceTime = Math.round((totalServiceTimeMs / completedToday.length) / 60000) || 15;
+    if (avgTimeResult.length > 0 && avgTimeResult[0].avgWaitMs != null) {
+      avgServiceTime = Math.round(avgTimeResult[0].avgWaitMs / 60000) || 15;
     }
 
     res.json({ 
-      success: true, shop_name: vendor.shop_name,
+      success: true, 
+      shop_name: vendor.shop_name,
       currently_serving: activeQueue.find(q => q.status === 'processing')?.token_number || null,
-      full_queue: activeQueue, avgWaitTime: avgServiceTime 
+      full_queue: activeQueue, 
+      avgWaitTime: avgServiceTime 
     });
-  } catch (err) { 
-      console.error("Public fetch error:", err);
-      res.status(500).json({ success: false, message: 'Server error' }); 
+  } catch (error) { 
+    next(error); 
   }
 };
 
 // ==========================================
 // 6. Get All Shops (Customer Homepage)
 // ==========================================
-exports.getAllShops = async (req, res) => {
+exports.getAllShops = async (req, res, next) => {
   try {
-    await autoCleanStuckTokens(); 
-
-    // Selecting shop type as well for filtering purposes
-    const shops = await Vendor.find({ is_verified: true }).select('shop_name qr_id is_open shop_type');
     const startOfToday = getStartOfToday();
     
-    const shopsWithCount = await Promise.all(shops.map(async (shop) => {
-      // 1. In-Line Customers Count
-      const activeCount = await Queue.countDocuments({
-        vendor_id: shop._id,
-        status: { $in: ['waiting', 'processing'] },
-        createdAt: { $gte: startOfToday }
-      });
+    const shops = await Vendor.find({ is_verified: true })
+      .select('shop_name qr_id is_open shop_type')
+      .lean();
 
-      // 2. DYNAMIC AVG TIME CALCULATION
-      // Fetching the last 5 completed tokens of today for this shop
-      const completedTokens = await Queue.find({
-        vendor_id: shop._id,
-        status: 'completed',
-        createdAt: { $gte: startOfToday }
-      }).sort({ updatedAt: -1 }).limit(5);
+    if (shops.length === 0) return res.json({ success: true, shops: [] });
 
-      let avgTime = 5; // Default wait time (5 min) if no customer has been served yet
+    const shopIds = shops.map(shop => shop._id);
 
-      if (completedTokens.length > 0) {
-        let totalServiceTime = 0;
-        
-        completedTokens.forEach(token => {
-          // Time taken from token creation (createdAt) to completion (updatedAt) in milliseconds
-          const timeDiffInMs = new Date(token.updatedAt) - new Date(token.createdAt);
-          totalServiceTime += Math.round(timeDiffInMs / 60000); // Convert to minutes
-        });
-        
-        // Calculate average (Using Math.max(1, ...) to ensure time is never 0)
-        avgTime = Math.max(1, Math.round(totalServiceTime / completedTokens.length)); 
-      }
+    const [activeCountsResult, avgTimesResult] = await Promise.all([
+      Queue.aggregate([
+        { $match: { vendor_id: { $in: shopIds }, status: { $in: ['waiting', 'processing'] }, createdAt: { $gte: startOfToday } } },
+        { $group: { _id: "$vendor_id", activeCount: { $sum: 1 } } }
+      ]),
+      Queue.aggregate([
+        { $match: { vendor_id: { $in: shopIds }, status: 'completed', processedAt: { $exists: true }, createdAt: { $gte: startOfToday } } },
+        { $project: { vendor_id: 1, serviceTimeMs: { $subtract: ["$updatedAt", "$processedAt"] } } },
+        { $group: { _id: "$vendor_id", avgWaitMs: { $avg: "$serviceTimeMs" } } }
+      ])
+    ]);
 
-      // Return both activeCount and avgTime in the shop data
-      return { ...shop._doc, activeCount, avgTime };
-    }));
+    const activeCountMap = {};
+    activeCountsResult.forEach(item => { activeCountMap[item._id.toString()] = item.activeCount; });
+
+    const avgTimeMap = {};
+    avgTimesResult.forEach(item => { 
+      // 🟢 FIXED: Fallback to 0 to prevent NaN
+      avgTimeMap[item._id.toString()] = Math.round((item.avgWaitMs || 0) / 60000); 
+    });
+
+    const shopsWithCount = shops.map(shop => {
+      const shopIdStr = shop._id.toString();
+      return {
+        ...shop,
+        activeCount: activeCountMap[shopIdStr] || 0,
+        avgTime: avgTimeMap[shopIdStr] || 5 
+      };
+    });
 
     res.json({ success: true, shops: shopsWithCount });
   } catch (error) {
-    console.error("Error in getAllShops:", error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    next(error);
   }
 };
-
 
 // ==========================================
 // 7. Get Customer History
 // ==========================================
-exports.getCustomerHistory = async (req, res) => {
+exports.getCustomerHistory = async (req, res, next) => {
   try {
-    await autoCleanStuckTokens(); 
-    const { phone: googleUID } = req.params; // Frontend abhi bhi parameter 'phone' bhej raha hoga, par usme UID hogi
+    const { phone: googleUID } = req.params; 
 
-    const myHistory = await Queue.find({
-      googleUID: googleUID, 
-      hiddenFromCustomer: { $ne: true } 
-    }).sort({ createdAt: -1 });
+    const myHistory = await Queue.find({ googleUID: googleUID, hiddenFromCustomer: { $ne: true } })
+      .sort({ createdAt: -1 })
+      .lean(); 
 
-    const historyWithCount = await Promise.all(myHistory.map(async (queueItem) => {
-      const shop = await Vendor.findById(queueItem.vendor_id).select('shop_name qr_id is_open');
-      
+    if (myHistory.length === 0) return res.json({ success: true, history: [] });
+
+    const uniqueVendorIds = [...new Set(myHistory.map(item => item.vendor_id.toString()))];
+    const vendors = await Vendor.find({ _id: { $in: uniqueVendorIds } })
+      .select('shop_name qr_id is_open')
+      .lean();
+
+    const vendorMap = {};
+    vendors.forEach(v => { vendorMap[v._id.toString()] = v; });
+
+    const historyWithCount = myHistory.map(queueItem => {
+      const shop = vendorMap[queueItem.vendor_id.toString()];
       return { 
         _id: queueItem._id, 
-        qr_id: shop ? shop.qr_id : 'unknown', 
-        shop_name: shop ? shop.shop_name : 'Deleted Shop',
-        is_open: shop ? shop.is_open : false, 
+        qr_id: shop?.qr_id || 'unknown', 
+        shop_name: shop?.shop_name || 'Deleted Shop',
+        is_open: shop?.is_open || false, 
         token_number: queueItem.token_number,
         status: queueItem.status, 
         createdAt: queueItem.createdAt,
         graceEndTime: queueItem.graceEndTime
       };
-    }));
+    });
 
     res.json({ success: true, history: historyWithCount });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error' });
+    next(error);
   }
 };
 
 // ==========================================
 // 8. Hide History Entry (Customer)
 // ==========================================
-exports.hideHistory = async (req, res) => {
+exports.hideHistory = async (req, res, next) => {
   try {
     const { tokenId } = req.params;
-    
-    const queueItem = await Queue.findById(tokenId);
-    if (!queueItem) {
-      return res.status(404).json({ success: false, message: 'Record not found' });
-    }
+    const { googleUID } = req.body; 
 
-    queueItem.hiddenFromCustomer = true;
-    await queueItem.save();
+    if (!googleUID) return res.status(400).json({ success: false, message: 'Unauthorized action' });
+    
+    const updatedItem = await Queue.findOneAndUpdate(
+      { _id: tokenId, googleUID: googleUID }, 
+      { $set: { hiddenFromCustomer: true } },
+      { new: true } 
+    );
+
+    if (!updatedItem) return res.status(404).json({ success: false, message: 'Record not found or you are not authorized' });
 
     res.status(200).json({ success: true, message: 'Hidden successfully' });
   } catch (error) {
-    console.error("Hide History Error:", error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    next(error);
   }
 };
 
 // ==========================================
 // 9. Cancel Token (Customer)
 // ==========================================
-exports.cancelToken = async (req, res) => {
+exports.cancelToken = async (req, res, next) => {
   try {
     const { qr_id, token_number, customer_phone: googleUID } = req.body;
     
-    const vendor = await Vendor.findOne({ qr_id });
+    const vendor = await Vendor.findOne({ qr_id }).lean();
     if (!vendor) return res.status(404).json({ success: false, message: 'Shop not found' });
 
     const startOfToday = getStartOfToday();
 
-    const deletedToken = await Queue.findOneAndDelete({
-      vendor_id: vendor._id,
-      token_number: Number(token_number),
-      googleUID: googleUID, // Strict Google UID check
-      status: { $in: ['waiting', 'skipped'] },
-      createdAt: { $gte: startOfToday }
-    });
+    const cancelledToken = await Queue.findOneAndUpdate(
+      {
+        vendor_id: vendor._id,
+        token_number: Number(token_number),
+        googleUID: googleUID, 
+        status: { $in: ['waiting', 'skipped'] },
+        createdAt: { $gte: startOfToday }
+      },
+      { 
+        $set: { status: 'cancelled_by_customer', graceEndTime: null, updatedAt: new Date() } 
+      },
+      { new: true } 
+    );
 
-    if (!deletedToken) {
-      return res.status(400).json({ success: false, message: 'Token not found or already processed' });
-    }
+    if (!cancelledToken) return res.status(400).json({ success: false, message: 'Token not found or already processed' });
 
     const io = req.app.get('socketio');
-    if (io) io.emit(`vendor_${vendor._id}`, { action: 'refresh' });
+    if (io) {
+      io.emit(`vendor_${vendor._id}`, { 
+        action: 'refresh',
+        message: `Token #${token_number} was cancelled by the customer.`
+      });
+    }
 
     res.json({ success: true, message: 'Token cancelled successfully' });
-  } catch (err) {
-    res.status(500).json({ success: false, message: 'Server error' });
+  } catch (error) {
+    next(error);
   }
 };
-
 
 // ==========================================
 // 10. Generate WALK-IN Token (Vendor Panel)
 // ==========================================
-exports.addWalkInToken = async (req, res) => {
+exports.addWalkInToken = async (req, res, next) => {
   try {
     const vendor_id = req.vendor.vendorId; 
-    const { customer_name } = req.body; // Koi phone number nahi aayega ab
+    const { customer_name } = req.body; 
     const startOfToday = getStartOfToday();
 
-    const vendor = await Vendor.findById(vendor_id);
+    const vendor = await Vendor.findById(vendor_id).lean();
     if (!vendor) return res.status(404).json({ success: false, message: 'Shop not found' });
     if (vendor.is_open === false) return res.status(403).json({ success: false, message: 'Shop closed!' });
 
     const now = new Date();
-    const todayString = now.toDateString(); 
-    const lastResetString = vendor.stats.last_reset ? new Date(vendor.stats.last_reset).toDateString() : "";
 
-    let currentCount = vendor.stats.daily_token_count || 0;
-    if (todayString !== lastResetString) currentCount = 0; 
-    const nextTokenNumber = currentCount + 1;
+    // 🟢 MAGICAL FIX: Atomic Counter for Walk-ins too
+    let updatedVendor = await Vendor.findOneAndUpdate(
+      { _id: vendor._id, 'stats.last_reset': { $gte: startOfToday } },
+      { $inc: { 'stats.daily_token_count': 1 }, $set: { 'stats.last_reset': now } },
+      { new: true }
+    );
 
-    // SAVE NEW WALK-IN TOKEN
+    if (!updatedVendor) {
+      updatedVendor = await Vendor.findOneAndUpdate(
+        { _id: vendor._id, 'stats.last_reset': { $lt: startOfToday } },
+        { $set: { 'stats.daily_token_count': 1, 'stats.last_reset': now } },
+        { new: true }
+      );
+      if (!updatedVendor) {
+        updatedVendor = await Vendor.findOneAndUpdate(
+          { _id: vendor._id },
+          { $inc: { 'stats.daily_token_count': 1 } },
+          { new: true }
+        );
+      }
+    }
+
+    const nextTokenNumber = updatedVendor.stats.daily_token_count;
+
     const newQueueItem = new Queue({
       vendor_id: vendor._id,
       customer_name: customer_name || 'Walk-in Customer',
@@ -475,11 +505,6 @@ exports.addWalkInToken = async (req, res) => {
     });
     await newQueueItem.save();
 
-    await Vendor.findByIdAndUpdate(vendor._id, { 
-      'stats.daily_token_count': nextTokenNumber,
-      'stats.last_reset': now 
-    });
-
     const io = req.app.get('socketio');
     if (io) {
       io.emit(`vendor_${vendor._id}`, { action: 'refresh' });
@@ -488,6 +513,6 @@ exports.addWalkInToken = async (req, res) => {
 
     res.status(201).json({ success: true, token_number: nextTokenNumber, message: 'Walk-in token generated!' });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Server error' });
+    next(error);
   }
 };

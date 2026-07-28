@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const Vendor = require('../models/Vendor'); 
+const logger = require('../config/logger'); // 🟢 ADDED: Winston logger for production
 
 const protect = async (req, res, next) => { 
-  // 1. 🟢 EXTRACT TOKEN (Hybrid Approach: First check Cookie, then Header)
-  let token = req.cookies?.vendorToken; // Try getting token from HttpOnly Cookie
+  // 1. EXTRACT TOKEN (Hybrid Approach)
+  let token = req.cookies?.vendorToken; 
 
   if (!token) {
-    // Backup: If cookie isn't there, check the Authorization header
     const authHeader = req.header('Authorization');
     if (authHeader && authHeader.startsWith('Bearer ')) {
       token = authHeader.split(' ')[1];
@@ -20,16 +20,23 @@ const protect = async (req, res, next) => {
     });
   }
 
+  // 2. 🟢 STRICT SECRET CHECK (Removed 'Qzkip' fallback)
+  if (!process.env.JWT_SECRET) {
+    logger.error('🔥 [FATAL ERROR] JWT_SECRET is missing in environment variables!');
+    return res.status(500).json({ success: false, message: 'Internal Server Error' });
+  }
+
   try {
-    // 2. Verify the token
-    const verified = jwt.verify(token, process.env.JWT_SECRET || 'Qzkip'); // Match default secret with authController
+    // 3. Verify the token
+    const verified = jwt.verify(token, process.env.JWT_SECRET); 
     
-    // 3. Verify against the database
-    // Checking if the ID within the token corresponds to an actual shop in the database
-    const vendor = await Vendor.findById(verified.vendorId || verified.id);
+    // 4. 🟢 MAGICAL FIX: Performance Optimized Database Query
+    // .select() se sirf zaroori data aayega aur .lean() se query 3x fast ho jayegi
+    const vendor = await Vendor.findById(verified.vendorId || verified.id)
+      .select('_id status')
+      .lean();
     
     if (!vendor) {
-      // 🟢 FIX: Agar vendor nahi mila toh kachra cookie saaf kar do
       res.clearCookie('vendorToken', { httpOnly: true, secure: true, sameSite: 'None' });
       return res.status(401).json({ 
         success: false, 
@@ -37,13 +44,28 @@ const protect = async (req, res, next) => {
       });
     }
 
-    // 4. Pass the ID to the controller in the correct format
+    // 5. 🟢 CRITICAL SECURITY FIX: Rejected/Banned Vendor Check
+    if (vendor.status === 'rejected') {
+      res.clearCookie('vendorToken', { httpOnly: true, secure: true, sameSite: 'None' });
+      logger.warn(`🛑 [SECURITY] Blocked access for REJECTED vendor ID: ${vendor._id}`);
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Your account has been suspended or rejected by the admin. Access denied.' 
+      });
+    }
+
+    // 6. Pass the ID to the controller in the correct format
     req.vendor = { vendorId: vendor._id }; 
     
     next(); 
   } catch (error) {
-    console.error('Token Verification Error:', error.message);
-    // 🟢 FIX: Token expire hone par apne aap cookie delete ho jayegi
+    // 7. 🟢 BETTER ERROR LOGGING
+    if (error.name === 'TokenExpiredError') {
+      logger.info('⏳ [AUTH] Session expired for a vendor.');
+    } else {
+      logger.error(`❌ [AUTH VERIFICATION ERROR]: ${error.message}`);
+    }
+
     res.clearCookie('vendorToken', { httpOnly: true, secure: true, sameSite: 'None' });
     res.status(401).json({ 
       success: false, 

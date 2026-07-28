@@ -1,25 +1,60 @@
-const logger = require('../config/logger'); // NEW: Imported the Winston logger utility
+const logger = require('../config/logger'); 
 
 const errorHandler = (err, req, res, next) => {
-  // If no statusCode is set in the error, default to 500 (Internal Server Error)
-  const statusCode = err.statusCode || 500;
-  const message = err.message || 'An internal server error occurred!';
+  // 1. 🟢 CRITICAL SAFETY: Agar headers pehle hi send ho chuke hain, toh default Express handler ko pass kar do
+  if (res.headersSent) {
+    return next(err);
+  }
 
-  // CORE LOGIC: Instead of console.log, Winston will now save the complete error details to the log file
-  logger.error({
-    message: message,
-    stack: err.stack,
-    url: req.originalUrl || req.url, // The API endpoint where the error occurred
-    method: req.method,              // The HTTP method (GET, POST, etc.)
-    ip: req.ip                       // The IP address of the user who made the request
-  });
+  let statusCode = err.statusCode || 500;
+  let message = err.message || 'An internal server error occurred!';
 
+  // 2. 🟢 SMART MONGOOSE ERROR HANDLING
+
+  // A. Bad/Invalid Mongoose ObjectId (CastError)
+  if (err.name === 'CastError') {
+    message = `Resource not found. Invalid: ${err.path}`;
+    statusCode = 404; // Not Found
+  }
+
+  // B. Mongoose Duplicate Key (Error 11000)
+  if (err.code === 11000) {
+    const field = Object.keys(err.keyValue)[0];
+    message = `Duplicate field value entered for '${field}'. Please use another value.`;
+    statusCode = 400; // Bad Request
+  }
+
+  // C. Mongoose Validation Error (Missing fields, wrong data type)
+  if (err.name === 'ValidationError') {
+    message = Object.values(err.errors).map(val => val.message).join(', ');
+    statusCode = 400; // Bad Request
+  }
+
+  // D. JWT Errors (Agar token middleware ke bahar throw hue)
+  if (err.name === 'JsonWebTokenError') {
+    message = 'Invalid session token. Please log in again.';
+    statusCode = 401; // Unauthorized
+  }
+  if (err.name === 'TokenExpiredError') {
+    message = 'Your session has expired. Please log in again.';
+    statusCode = 401; // Unauthorized
+  }
+
+  // 3. 🟢 STRUCTURED WINSTON LOGGING
+  // Server error (500) aane par hi stack trace log karenge taaki log file kachra na bane
+  if (statusCode >= 500) {
+    logger.error(`${statusCode} - ${message} - ${req.originalUrl} - ${req.method} - ${req.ip}`, {
+      stack: err.stack
+    });
+  } else {
+    logger.warn(`${statusCode} - ${message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+  }
+
+  // 4. Send Response to Frontend
   res.status(statusCode).json({
     success: false,
     message: message,
-    // CRITICAL PRODUCTION STEP:
-    // Show error details (stack trace) only if the environment is 'development', 
-    // keep it NULL in production to prevent security leaks!
+    // Production mein stack trace hide rahega
     stack: process.env.NODE_ENV === 'development' ? err.stack : null
   });
 };

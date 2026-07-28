@@ -1,21 +1,35 @@
 const express = require('express');
 const router = express.Router();
+const rateLimit = require('express-rate-limit'); // 🟢 ADDED: Strict rate limiting ke liye
+
 const adminController = require('../controllers/adminController');
 const adminAuth = require('../middleware/adminAuthNew');
 
-// The login endpoint is unprotected
-router.post('/login', adminController.adminLogin);
+// ==========================================
+// 🛡️ STRICT ADMIN RATE LIMITER
+// ==========================================
+const adminLoginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // 🟢 STRICT: Sirf 5 galat attempts allow karega, phir block kar dega
+  message: { success: false, message: 'Too many login attempts. Please try again after 15 minutes.' }
+});
 
-// Protect all remaining routes with the adminAuth middleware
-router.get('/pending-vendors', adminAuth, adminController.getPendingVendors);
-router.patch('/approve/:vendorId', adminAuth, adminController.approveVendor);
+// ==========================================
+// 🔓 UNPROTECTED ROUTES
+// ==========================================
+router.post('/login', adminLoginLimiter, adminController.adminLogin);
 
-// 🟢 CHANGED: Reject ab PATCH request hai kyunki hum data update kar rahe hain delete nahi
-router.patch('/reject/:vendorId', adminAuth, adminController.rejectVendor); 
+// ==========================================
+// 🔒 PROTECTED ADMIN ROUTES (MIDDLEWARE APPLIED GLOBALLY)
+// ==========================================
+// 🟢 CLEAN CODE: Ab iske niche wale har route par 'adminAuth' khud apply ho jayega!
+router.use(adminAuth); 
 
-// 🟢 NEW: Asli Delete route
-router.delete('/delete/:vendorId', adminAuth, adminController.deleteVendor);
+router.get('/pending-vendors', adminController.getPendingVendors);
+router.patch('/approve/:vendorId', adminController.approveVendor);
+router.patch('/reject/:vendorId', adminController.rejectVendor); 
+
+// 🟢 FIXED REST API STANDARD: '/delete/:vendorId' ki jagah sirf '/:vendorId'
+router.delete('/:vendorId', adminController.deleteVendor);
 
 module.exports = router;
-
-// Forced update for Render
