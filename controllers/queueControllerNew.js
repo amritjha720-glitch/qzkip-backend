@@ -290,6 +290,7 @@ exports.getPublicStatus = async (req, res, next) => {
     res.json({ 
       success: true, 
       shop_name: vendor.shop_name,
+      shop_type: vendor.shop_type,
       currently_serving: activeQueue.find(q => q.status === 'processing')?.token_number || null,
       full_queue: activeQueue, 
       avgWaitTime: avgServiceTime 
