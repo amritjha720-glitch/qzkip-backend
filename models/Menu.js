@@ -39,4 +39,4 @@ function arrayLimit(val) {
   return val.length <= 200; // Ek dukaan ke menu mein max 200 items (Adjust kar sakte ho)
 }
 
-module.exports = mongoose.model('Menu', menuSchema);
+module.exports = mongoose.models.Menu || mongoose.model('Menu', menuSchema);
