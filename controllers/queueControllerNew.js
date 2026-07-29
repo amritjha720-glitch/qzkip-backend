@@ -11,7 +11,7 @@ const getStartOfToday = () => {
 };
 
 // ==========================================
-// 🚀 CRON EXPORT: Ab isko server.js ya Node-Cron se background mein chala sakte ho
+// 🚀 CRON EXPORT: Stuck tokens auto-cleanup
 // ==========================================
 exports.autoCleanStuckTokens = async () => {
   try {
@@ -196,7 +196,6 @@ exports.getLiveQueue = async (req, res, next) => {
       ])
     ]);
 
-    // 🟢 FIXED: NaN Crash Fix
     let avgServiceTime = 15;
     if (avgTimeResult.length > 0 && avgTimeResult[0].avgWaitMs != null) {
       avgServiceTime = Math.round(avgTimeResult[0].avgWaitMs / 60000) || 15;
@@ -237,7 +236,7 @@ exports.updateStatus = async (req, res, next) => {
     }
 
     const updatedToken = await Queue.findByIdAndUpdate(
-        token_id, updateFields, { new: true } // 🟢 FIXED: returnDocument: 'after' is native MongoDB, Mongoose uses { new: true }
+        token_id, updateFields, { new: true }
     );
 
     if (!updatedToken) return res.status(404).json({ success: false, message: 'Token not found' });
@@ -281,7 +280,6 @@ exports.getPublicStatus = async (req, res, next) => {
       ])
     ]);
 
-    // 🟢 FIXED: NaN Check
     let avgServiceTime = 15; 
     if (avgTimeResult.length > 0 && avgTimeResult[0].avgWaitMs != null) {
       avgServiceTime = Math.round(avgTimeResult[0].avgWaitMs / 60000) || 15;
@@ -301,20 +299,45 @@ exports.getPublicStatus = async (req, res, next) => {
 };
 
 // ==========================================
-// 6. Get All Shops (Customer Homepage)
+// 📍 6. Get All Shops (NEW: Customer Homepage with 2KM Geo-Location)
 // ==========================================
 exports.getAllShops = async (req, res, next) => {
   try {
     const startOfToday = getStartOfToday();
     
-    const shops = await Vendor.find({ is_verified: true })
-      .select('shop_name qr_id is_open shop_type')
-      .lean();
+    // 🟢 1. Capture Coordinates from query (Will be provided by Frontend)
+    const { lat, lng, radius = 2000 } = req.query; // Default radius: 2km
+
+    let vendorPipeline = [];
+
+    // 🟢 2. MAGIC: GeoNear Aggregation (Zomato Style)
+    if (lat && lng) {
+      vendorPipeline.push({
+        $geoNear: {
+          near: { type: "Point", coordinates: [parseFloat(lng), parseFloat(lat)] }, 
+          distanceField: "distance_in_meters", 
+          maxDistance: parseInt(radius), 
+          query: { is_verified: true },
+          spherical: true
+        }
+      });
+    } else {
+      // 🔴 FALLBACK: Agar user ne GPS deny kar diya, toh normal saari list dikhao
+      vendorPipeline.push({ $match: { is_verified: true } });
+    }
+
+    // 🟢 3. Project only necessary fields (Saves bandwidth)
+    vendorPipeline.push({
+      $project: { shop_name: 1, qr_id: 1, is_open: 1, shop_type: 1, distance_in_meters: 1 }
+    });
+
+    const shops = await Vendor.aggregate(vendorPipeline);
 
     if (shops.length === 0) return res.json({ success: true, shops: [] });
 
     const shopIds = shops.map(shop => shop._id);
 
+    // 🟢 4. Merge with your flawless Queue logic
     const [activeCountsResult, avgTimesResult] = await Promise.all([
       Queue.aggregate([
         { $match: { vendor_id: { $in: shopIds }, status: { $in: ['waiting', 'processing'] }, createdAt: { $gte: startOfToday } } },
@@ -332,16 +355,24 @@ exports.getAllShops = async (req, res, next) => {
 
     const avgTimeMap = {};
     avgTimesResult.forEach(item => { 
-      // 🟢 FIXED: Fallback to 0 to prevent NaN
       avgTimeMap[item._id.toString()] = Math.round((item.avgWaitMs || 0) / 60000); 
     });
 
+    // 🟢 5. Format Final Output
     const shopsWithCount = shops.map(shop => {
       const shopIdStr = shop._id.toString();
+      
+      // Convert distance to Clean Format (e.g., "1.2 km")
+      let distanceText = null;
+      if (shop.distance_in_meters != null) {
+         distanceText = (shop.distance_in_meters / 1000).toFixed(1) + " km"; 
+      }
+
       return {
         ...shop,
         activeCount: activeCountMap[shopIdStr] || 0,
-        avgTime: avgTimeMap[shopIdStr] || 5 
+        avgTime: avgTimeMap[shopIdStr] || 5,
+        distance: distanceText // Ready for UI
       };
     });
 

@@ -14,7 +14,6 @@ const vendorSchema = new mongoose.Schema({
   
   kyc_details: {
     document_type: { type: String, enum: ['PAN', 'GSTIN', 'Shop License', 'Other'], default: 'PAN' },
-    
     // 🟢 FIXED: Data clean rakhne ke liye trim aur auto-uppercase
     document_number: { type: String, trim: true, uppercase: true }
   },
@@ -30,7 +29,7 @@ const vendorSchema = new mongoose.Schema({
   is_verified: { 
     type: Boolean, 
     default: false,
-    index: true // 🟢 FIXED: Customer App ke 'getAllShops' (Homepage) ko lag-free banane ke liye
+    index: true // 🟢 FIXED: Customer App ke 'getAllShops' ko lag-free banane ke liye
   },
   
   is_open: { type: Boolean, default: true }, 
@@ -38,10 +37,25 @@ const vendorSchema = new mongoose.Schema({
   stats: {
     daily_token_count: { type: Number, default: 0 },
     last_reset: { type: Date, default: Date.now } 
+  },
+
+  // 📍 🟢 PHASE 1: Naya GeoJSON Location Object (Zomato/Swiggy Style Location)
+  location: {
+    type: { 
+      type: String, 
+      enum: ['Point'], 
+      default: 'Point' 
+    },
+    coordinates: { 
+      type: [Number], // Hamesha format hoga: [Longitude, Latitude]
+      required: false // 🟢 CRITICAL: 'false' rakha hai taaki purani dukaano (bina location) par server crash na ho
+    }
   }
+
 }, { timestamps: true });
 
-// 🟢 REMOVED: vendorSchema.index({ qr_id: 1, phone: 1 }); 
-// Iski zaroorat nahi hai kyunki unique:true apna index khud bana leta hai.
+// 📍 🟢 CRITICAL PRODUCTION FIX: MongoDB ko map mode mein daalne ke liye 2dsphere index
+vendorSchema.index({ location: '2dsphere' });
 
-module.exports = mongoose.model('Vendor', vendorSchema);
+// 🟢 CRASH FIX: Nodemon reload pe 'OverwriteModelError' se bachne ke liye models caching
+module.exports = mongoose.models.Vendor || mongoose.model('Vendor', vendorSchema);
