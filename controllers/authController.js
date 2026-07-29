@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto'); 
 const Vendor = require('../models/Vendor');
-const logger = require('../config/logger'); // 🟢 CRITICAL FIX: Winston logger import kiya
+const logger = require('../config/logger'); 
 
 // ==========================================
 // Helper Function: FAST Unique QR ID Generator
@@ -35,7 +35,6 @@ exports.googleVendorAuth = async (req, res, next) => {
 
     if (vendor.status === 'approved' || vendor.is_verified === true) {
       
-      // 🟢 SECURITY FIX: Hardcoded 'Qzkip' hata diya aur strict env check lagaya
       if (!process.env.JWT_SECRET) {
         logger.error('🔥 [FATAL] JWT_SECRET missing in environment variables!');
         return res.status(500).json({ success: false, message: 'Internal Server Error' });
@@ -64,7 +63,7 @@ exports.googleVendorAuth = async (req, res, next) => {
 
   } catch (error) {
     logger.error(`❌ [AUTH ERROR]: ${error.message}`);
-    next(error); // 🟢 FIXED: Error ko global middleware tak bheja
+    next(error); 
   }
 };
 
@@ -74,7 +73,17 @@ exports.googleVendorAuth = async (req, res, next) => {
 // ==========================================
 exports.completeVendorProfile = async (req, res, next) => {
   try {
-    const { googleUID, email, name, shop_name, phone, document_type, document_number, shop_type } = req.body;
+    // 🟢 PHASE 2: Frontend se 'lat' aur 'lng' bhi receive karna
+    const { googleUID, email, name, shop_name, phone, document_type, document_number, shop_type, lat, lng } = req.body;
+
+    // 🟢 GEOJSON FORMAT: Agar location aayi hai, toh usko MongoDB format mein set karo
+    let locationData = undefined;
+    if (lat && lng) {
+      locationData = {
+        type: 'Point',
+        coordinates: [parseFloat(lng), parseFloat(lat)] // Dhyan rahe: Hamesha [Longitude, Latitude]
+      };
+    }
 
     let existingVendor = await Vendor.findOne({ email });
 
@@ -93,6 +102,7 @@ exports.completeVendorProfile = async (req, res, next) => {
               shop_name: shop_name,
               phone: phone,
               shop_type: shop_type,
+              location: locationData, // 🟢 SAVE LOCATION FOR RE-APPLY
               kyc_details: { document_type, document_number },
               status: 'pending',
               is_verified: false
@@ -118,6 +128,7 @@ exports.completeVendorProfile = async (req, res, next) => {
     const vendor = new Vendor({
       googleUID, email, name, shop_name, phone,
       qr_id: unique_qr_id, shop_type,
+      location: locationData, // 🟢 SAVE LOCATION FOR NEW SHOP
       kyc_details: { document_type, document_number },
       is_verified: false,
       status: 'pending'
@@ -149,6 +160,6 @@ exports.logoutVendor = (req, res, next) => {
     logger.info('🔴 [AUTH] Vendor Logged Out, Cookie Cleared');
     res.status(200).json({ success: true, message: 'Logged out successfully' });
   } catch (error) {
-    next(error); // 🟢 FIXED: Gracefully handle errors if clearCookie fails for any unexpected reason
+    next(error); 
   }
 };
