@@ -16,6 +16,11 @@ const vendorProfileSchema = z.object({
   
   shop_name: z.string().trim().min(3, "Shop name must be at least 3 characters long").max(150, "Shop name is too long"),
   
+  // 📍 🟢 NEW: Manual Address Validation added
+  shop_address: z.string({
+    required_error: "Shop address is required for verification"
+  }).trim().min(10, "Please provide a complete shop address (at least 10 characters)").max(500, "Shop address is too long"),
+  
   phone: z.string()
     .length(10, "Mobile number must be exactly 10 digits")
     .regex(/^[6-9]\d{9}$/, "Please provide a valid Indian mobile number"),
@@ -26,7 +31,7 @@ const vendorProfileSchema = z.object({
   
   shop_type: z.enum(['clinic', 'barber', 'cyber cafe'], { message: "Shop type must be either clinic, barber, or cyber cafe" }),
 
-  // 📍 🟢 THE FIX: Zomato Style GPS Coordinates with Earth Boundaries
+  // 📍 🟢 GPS Coordinates Validation
   lat: z.number({ invalid_type_error: "Latitude must be a number" }).min(-90).max(90).optional(),
   lng: z.number({ invalid_type_error: "Longitude must be a number" }).min(-180).max(180).optional()
 

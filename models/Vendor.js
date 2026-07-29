@@ -3,18 +3,20 @@ const mongoose = require('mongoose');
 const vendorSchema = new mongoose.Schema({
   googleUID: { type: String, required: true, unique: true, index: true }, 
   
-  // Email ko strictly sanitize kar diya
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   
   name: { type: String, trim: true },
   shop_name: { type: String, required: [true, 'Shop name is required'], trim: true },
+  
+  // 📍 🟢 NEW: Manual Shop Address added for Admin Verification (Security limit of 500 chars)
+  shop_address: { type: String, required: [true, 'Shop address is required'], trim: true, maxlength: 500 },
+
   phone: { type: String, required: [true, 'Phone number is required'], unique: true },
   qr_id: { type: String, required: [true, 'QR ID is required'], unique: true, lowercase: true, trim: true },
   shop_type: { type: String, enum: ['clinic', 'barber', 'cyber cafe'], required: [true, 'Selecting a shop type is required'] },
   
   kyc_details: {
     document_type: { type: String, enum: ['PAN', 'GSTIN', 'Shop License', 'Other'], default: 'PAN' },
-    // Data clean rakhne ke liye trim aur auto-uppercase
     document_number: { type: String, trim: true, uppercase: true }
   },
   
@@ -22,13 +24,13 @@ const vendorSchema = new mongoose.Schema({
     type: String,
     enum: ['pending', 'approved', 'rejected'],
     default: 'pending',
-    index: true // Admin panel ke 'Pending Vendors' route ko fast karne ke liye
+    index: true 
   },
   
   is_verified: { 
     type: Boolean, 
     default: false,
-    index: true // Customer App ke 'getAllShops' ko lag-free banane ke liye
+    index: true 
   },
   
   is_open: { type: Boolean, default: true }, 
@@ -38,21 +40,18 @@ const vendorSchema = new mongoose.Schema({
     last_reset: { type: Date, default: Date.now } 
   },
 
-  // 📍 🟢 Naya GeoJSON Location Object (Zomato/Swiggy Style Location)
   location: {
     type: { 
       type: String, 
-      enum: ['Point'] // 🟢 FIXED: 'default: Point' hata diya taaki empty location pe DB crash na ho
+      enum: ['Point'] 
     },
     coordinates: { 
-      type: [Number] // Hamesha format hoga: [Longitude, Latitude]
+      type: [Number] 
     }
   }
 
 }, { timestamps: true });
 
-// 📍 🟢 CRITICAL PRODUCTION FIX: MongoDB ko map mode mein daalne ke liye 2dsphere index
 vendorSchema.index({ location: '2dsphere' });
 
-// 🟢 CRASH FIX: Nodemon reload pe 'OverwriteModelError' se bachne ke liye models caching
 module.exports = mongoose.models.Vendor || mongoose.model('Vendor', vendorSchema);

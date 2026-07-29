@@ -73,15 +73,14 @@ exports.googleVendorAuth = async (req, res, next) => {
 // ==========================================
 exports.completeVendorProfile = async (req, res, next) => {
   try {
-    // 🟢 PHASE 2: Frontend se 'lat' aur 'lng' bhi receive karna
-    const { googleUID, email, name, shop_name, phone, document_type, document_number, shop_type, lat, lng } = req.body;
+    // 🟢 NEW: 'shop_address' extracted from payload
+    const { googleUID, email, name, shop_name, shop_address, phone, document_type, document_number, shop_type, lat, lng } = req.body;
 
-    // 🟢 GEOJSON FORMAT: Agar location aayi hai, toh usko MongoDB format mein set karo
     let locationData = undefined;
     if (lat && lng) {
       locationData = {
         type: 'Point',
-        coordinates: [parseFloat(lng), parseFloat(lat)] // Dhyan rahe: Hamesha [Longitude, Latitude]
+        coordinates: [parseFloat(lng), parseFloat(lat)] 
       };
     }
 
@@ -100,9 +99,10 @@ exports.completeVendorProfile = async (req, res, next) => {
           {
             $set: {
               shop_name: shop_name,
+              shop_address: shop_address, // 🟢 SAVE MANUAL ADDRESS FOR RE-APPLY
               phone: phone,
               shop_type: shop_type,
-              location: locationData, // 🟢 SAVE LOCATION FOR RE-APPLY
+              location: locationData, 
               kyc_details: { document_type, document_number },
               status: 'pending',
               is_verified: false
@@ -126,9 +126,12 @@ exports.completeVendorProfile = async (req, res, next) => {
     const unique_qr_id = generateUniqueQRID(shop_name);
 
     const vendor = new Vendor({
-      googleUID, email, name, shop_name, phone,
+      googleUID, email, name, 
+      shop_name, 
+      shop_address, // 🟢 SAVE MANUAL ADDRESS FOR NEW SHOP
+      phone,
       qr_id: unique_qr_id, shop_type,
-      location: locationData, // 🟢 SAVE LOCATION FOR NEW SHOP
+      location: locationData, 
       kyc_details: { document_type, document_number },
       is_verified: false,
       status: 'pending'
