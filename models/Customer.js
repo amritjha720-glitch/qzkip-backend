@@ -1,42 +1,35 @@
 const mongoose = require('mongoose');
 
-// 1. 🟢 MAGICAL FIX: Item ka alag Sub-Schema banaya
-// Isse har item ko ek secure _id milegi aur controller ka `menu.items.id()` fast chalega
-const menuItemSchema = new mongoose.Schema({
+const customerSchema = new mongoose.Schema({
   name: { 
+    type: String,
+    trim: true // 🟢 FIXED: "John " ko "John" bana dega
+  },
+  
+  // Sirf Google UID rakhenge (Firebase/Google Auth ke liye)
+  googleUID: { 
     type: String, 
-    required: [true, 'Item name is required'],
-    trim: true, // " Samosa " ko "Samosa" banayega
-    maxlength: [100, 'Item name cannot exceed 100 characters']
+    unique: true, 
+    required: true,
+    trim: true,
+    index: true // 🟢 FIXED: Fast login & lookup ke liye explicit index
   },
-  price: { 
-    type: Number, 
-    required: [true, 'Item price is required'],
-    min: [0, 'Price cannot be negative'] // 2. 🟢 CRITICAL SECURITY FIX: Negative price block kiya
-  },
-  is_available: { 
+  
+  is_verified: { 
     type: Boolean, 
     default: true 
-  }
-});
-
-const menuSchema = new mongoose.Schema({
-  vendor_id: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Vendor', 
-    required: true,
-    unique: true, 
-    index: true // Fast lookup ke liye explicitly index
   },
-  items: {
-    type: [menuItemSchema], // Array of subdocuments
-    validate: [arrayLimit, 'A menu cannot exceed 200 items'] // 3. 🟢 PROTECTION: Document size exceed hone se bachayega
+  
+  // Push notifications (FCM tokens) ya analytics ke liye
+  device_id: { 
+    type: String,
+    trim: true
   }
+  
+  // 🟢 REMOVED: `visited_shops`
+  // Reason: Hum 'getCustomerHistory' mein already 'Queue' model ka use kar rahe hain
+  // history nikalne ke liye. Is array ko maintain karna redundant tha aur DB size badhata.
+
 }, { timestamps: true });
 
-// Custom Validation Function
-function arrayLimit(val) {
-  return val.length <= 200; // Ek dukaan ke menu mein max 200 items (Adjust kar sakte ho)
-}
-
-module.exports = mongoose.model('Menu', menuSchema);
+module.exports = mongoose.model('Customer', customerSchema);
