@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const vendorSchema = new mongoose.Schema({
   googleUID: { type: String, required: true, unique: true, index: true }, 
   
-  // 🟢 FIXED: Email ko strictly sanitize kar diya
+  // Email ko strictly sanitize kar diya
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   
   name: { type: String, trim: true },
@@ -14,7 +14,7 @@ const vendorSchema = new mongoose.Schema({
   
   kyc_details: {
     document_type: { type: String, enum: ['PAN', 'GSTIN', 'Shop License', 'Other'], default: 'PAN' },
-    // 🟢 FIXED: Data clean rakhne ke liye trim aur auto-uppercase
+    // Data clean rakhne ke liye trim aur auto-uppercase
     document_number: { type: String, trim: true, uppercase: true }
   },
   
@@ -22,14 +22,13 @@ const vendorSchema = new mongoose.Schema({
     type: String,
     enum: ['pending', 'approved', 'rejected'],
     default: 'pending',
-    index: true // 🟢 FIXED: Admin panel ke 'Pending Vendors' route ko 10x fast karne ke liye
+    index: true // Admin panel ke 'Pending Vendors' route ko fast karne ke liye
   },
   
-  // Isko abhi rehne dete hain taaki purana koi code break na ho
   is_verified: { 
     type: Boolean, 
     default: false,
-    index: true // 🟢 FIXED: Customer App ke 'getAllShops' ko lag-free banane ke liye
+    index: true // Customer App ke 'getAllShops' ko lag-free banane ke liye
   },
   
   is_open: { type: Boolean, default: true }, 
@@ -39,16 +38,14 @@ const vendorSchema = new mongoose.Schema({
     last_reset: { type: Date, default: Date.now } 
   },
 
-  // 📍 🟢 PHASE 1: Naya GeoJSON Location Object (Zomato/Swiggy Style Location)
+  // 📍 🟢 Naya GeoJSON Location Object (Zomato/Swiggy Style Location)
   location: {
     type: { 
       type: String, 
-      enum: ['Point'], 
-      default: 'Point' 
+      enum: ['Point'] // 🟢 FIXED: 'default: Point' hata diya taaki empty location pe DB crash na ho
     },
     coordinates: { 
-      type: [Number], // Hamesha format hoga: [Longitude, Latitude]
-      required: false // 🟢 CRITICAL: 'false' rakha hai taaki purani dukaano (bina location) par server crash na ho
+      type: [Number] // Hamesha format hoga: [Longitude, Latitude]
     }
   }
 
