@@ -27,7 +27,13 @@ const vendorProfileSchema = z.object({
   // Transform to UpperCase + Trim
   document_number: z.string().trim().toUpperCase(), 
   
-  shop_type: z.enum(['clinic', 'barber', 'cyber cafe'], { message: "Shop type must be either clinic, barber, or cyber cafe" })
+  shop_type: z.enum(['clinic', 'barber', 'cyber cafe'], { message: "Shop type must be either clinic, barber, or cyber cafe" }),
+
+  // 📍 🟢 THE FIX: Zomato Style GPS Coordinates Allow kar diye 
+  // (.optional isliye taaki agar user location deny kare toh validation fail na ho)
+  lat: z.number({ invalid_type_error: "Latitude must be a number" }).optional(),
+  lng: z.number({ invalid_type_error: "Longitude must be a number" }).optional()
+
 }).strict().superRefine((data, ctx) => {
   
   // PAN Logic
