@@ -53,7 +53,6 @@ exports.generateToken = async (req, res, next) => {
       return res.status(403).json({ success: false, message: 'This shop is currently closed! New tokens are not being accepted.' });
     }
 
-    // SECURITY LAYER 1
     const activeTokenCheck = await Queue.findOne({
       vendor_id: vendor._id,
       status: { $in: ['waiting', 'processing', 'skipped'] },
@@ -65,7 +64,6 @@ exports.generateToken = async (req, res, next) => {
       return res.status(400).json({ success: false, message: `You already have an active token (#${activeTokenCheck.token_number}) at this shop!` });
     }
 
-    // SECURITY LAYER 2
     const dailyBookingsCount = await Queue.countDocuments({
       vendor_id: vendor._id,
       googleUID: googleUID,
@@ -84,7 +82,6 @@ exports.generateToken = async (req, res, next) => {
 
     const now = new Date();
     
-    // 🟢 MAGICAL FIX: 100% Bulletproof Atomic Counter (Solves Midnight Race Condition)
     let updatedVendor = await Vendor.findOneAndUpdate(
       { _id: vendor._id, 'stats.last_reset': { $gte: startOfToday } },
       { $inc: { 'stats.daily_token_count': 1 }, $set: { 'stats.last_reset': now } },
@@ -98,7 +95,6 @@ exports.generateToken = async (req, res, next) => {
         { new: true }
       );
       
-      // Extreme edge case fallback
       if (!updatedVendor) {
         updatedVendor = await Vendor.findOneAndUpdate(
           { _id: vendor._id },
@@ -299,36 +295,48 @@ exports.getPublicStatus = async (req, res, next) => {
 };
 
 // ==========================================
-// 📍 6. Get All Shops (NEW: Customer Homepage with 2KM Geo-Location)
+// 📍 6. Get All Shops (Customer Homepage with Geo-Location)
 // ==========================================
 exports.getAllShops = async (req, res, next) => {
   try {
     const startOfToday = getStartOfToday();
     
-    // 🟢 1. Capture Coordinates from query (Will be provided by Frontend)
-    const { lat, lng, radius = 2000 } = req.query; // Default radius: 2km
+    // Default radius badhakar 10km (10000m) kar diya gaya hai
+    const { lat, lng, radius = 10000 } = req.query; 
+
+    // 🟢 FIXED: NaN Crash Protection
+    const parsedLat = parseFloat(lat);
+    const parsedLng = parseFloat(lng);
 
     let vendorPipeline = [];
 
-    // 🟢 2. MAGIC: GeoNear Aggregation (Zomato Style)
-    if (lat && lng) {
+    // 🟢 MAGIC: GeoNear Aggregation (Zomato Style)
+    // Sirf tabhi chalega jab lat/lng exact numbers honge
+    if (!isNaN(parsedLat) && !isNaN(parsedLng)) {
       vendorPipeline.push({
         $geoNear: {
-          near: { type: "Point", coordinates: [parseFloat(lng), parseFloat(lat)] }, 
+          near: { type: "Point", coordinates: [parsedLng, parsedLat] }, 
           distanceField: "distance_in_meters", 
-          maxDistance: parseInt(radius), 
+          maxDistance: parseInt(radius) || 10000, 
           query: { is_verified: true },
           spherical: true
         }
       });
     } else {
-      // 🔴 FALLBACK: Agar user ne GPS deny kar diya, toh normal saari list dikhao
+      // 🔴 FALLBACK: Agar GPS deny hua, normal fetch karo
       vendorPipeline.push({ $match: { is_verified: true } });
     }
 
-    // 🟢 3. Project only necessary fields (Saves bandwidth)
+    // 🟢 FIXED: `location: 1` add kiya taaki frontend pe Google Maps khul sake!
     vendorPipeline.push({
-      $project: { shop_name: 1, qr_id: 1, is_open: 1, shop_type: 1, distance_in_meters: 1 }
+      $project: { 
+        shop_name: 1, 
+        qr_id: 1, 
+        is_open: 1, 
+        shop_type: 1, 
+        distance_in_meters: 1, 
+        location: 1 
+      }
     });
 
     const shops = await Vendor.aggregate(vendorPipeline);
@@ -337,7 +345,6 @@ exports.getAllShops = async (req, res, next) => {
 
     const shopIds = shops.map(shop => shop._id);
 
-    // 🟢 4. Merge with your flawless Queue logic
     const [activeCountsResult, avgTimesResult] = await Promise.all([
       Queue.aggregate([
         { $match: { vendor_id: { $in: shopIds }, status: { $in: ['waiting', 'processing'] }, createdAt: { $gte: startOfToday } } },
@@ -358,11 +365,9 @@ exports.getAllShops = async (req, res, next) => {
       avgTimeMap[item._id.toString()] = Math.round((item.avgWaitMs || 0) / 60000); 
     });
 
-    // 🟢 5. Format Final Output
     const shopsWithCount = shops.map(shop => {
       const shopIdStr = shop._id.toString();
       
-      // Convert distance to Clean Format (e.g., "1.2 km")
       let distanceText = null;
       if (shop.distance_in_meters != null) {
          distanceText = (shop.distance_in_meters / 1000).toFixed(1) + " km"; 
@@ -372,7 +377,7 @@ exports.getAllShops = async (req, res, next) => {
         ...shop,
         activeCount: activeCountMap[shopIdStr] || 0,
         avgTime: avgTimeMap[shopIdStr] || 5,
-        distance: distanceText // Ready for UI
+        distance: distanceText 
       };
     });
 
@@ -504,7 +509,6 @@ exports.addWalkInToken = async (req, res, next) => {
 
     const now = new Date();
 
-    // 🟢 MAGICAL FIX: Atomic Counter for Walk-ins too
     let updatedVendor = await Vendor.findOneAndUpdate(
       { _id: vendor._id, 'stats.last_reset': { $gte: startOfToday } },
       { $inc: { 'stats.daily_token_count': 1 }, $set: { 'stats.last_reset': now } },

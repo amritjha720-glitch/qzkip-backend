@@ -5,37 +5,41 @@ const googleAuthSchema = z.object({
   googleUID: z.string().trim().min(1, "Google UID is required"),
   email: z.string().trim().email("Please provide a valid email address"),
   name: z.string().trim().optional()
-}).strict(); // 🟢 SECURITY FIX: Koi extra kachra/hidden fields aayengi toh reject kar dega
+}).strict(); 
 
 // 2. 🟢 KYC Profile Validation (Bulletproof)
 const vendorProfileSchema = z.object({
   googleUID: z.string().trim().min(1, "Google UID is missing"),
   email: z.string().trim().email("Please provide a valid email address"),
   
-  // Name limit add ki taaki DB overload na ho
   name: z.string().trim().max(100, "Name is too long").optional(),
   
   shop_name: z.string().trim().min(3, "Shop name must be at least 3 characters long").max(150, "Shop name is too long"),
   
-  // 🟢 MAGICAL FIX: Indian Mobile Number Verification
   phone: z.string()
     .length(10, "Mobile number must be exactly 10 digits")
     .regex(/^[6-9]\d{9}$/, "Please provide a valid Indian mobile number"),
     
   document_type: z.enum(['PAN', 'GSTIN', 'Shop License', 'Other'], { message: "Please select a valid document type" }),
   
-  // Transform to UpperCase + Trim
   document_number: z.string().trim().toUpperCase(), 
   
   shop_type: z.enum(['clinic', 'barber', 'cyber cafe'], { message: "Shop type must be either clinic, barber, or cyber cafe" }),
 
-  // 📍 🟢 THE FIX: Zomato Style GPS Coordinates Allow kar diye 
-  // (.optional isliye taaki agar user location deny kare toh validation fail na ho)
-  lat: z.number({ invalid_type_error: "Latitude must be a number" }).optional(),
-  lng: z.number({ invalid_type_error: "Longitude must be a number" }).optional()
+  // 📍 🟢 THE FIX: Zomato Style GPS Coordinates with Earth Boundaries
+  lat: z.number({ invalid_type_error: "Latitude must be a number" }).min(-90).max(90).optional(),
+  lng: z.number({ invalid_type_error: "Longitude must be a number" }).min(-180).max(180).optional()
 
 }).strict().superRefine((data, ctx) => {
   
+  // 📍 🟢 SECURITY FIX: The "Half Coordinate" Blocker
+  if ((data.lat !== undefined && data.lng === undefined) || (data.lat === undefined && data.lng !== undefined)) {
+    ctx.addIssue({ 
+      code: z.ZodIssueCode.custom, 
+      message: "Both Latitude and Longitude are required together, or neither." 
+    });
+  }
+
   // PAN Logic
   if (data.document_type === 'PAN') {
     const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
@@ -60,7 +64,7 @@ const vendorProfileSchema = z.object({
     }
   } 
   
-  // 🟢 SECURITY FIX: Logic for "Other" Type
+  // Other Logic
   else if (data.document_type === 'Other') {
     if (data.document_number.length < 3 || data.document_number.length > 30) {
       ctx.addIssue({ path: ['document_number'], code: z.ZodIssueCode.custom, message: "Document number must be between 3 and 30 characters" });
@@ -78,8 +82,6 @@ const validateGoogleAuth = (req, res, next) => {
       errors: result.error.issues.map(err => err.message) 
     });
   }
-  
-  // 🟢 CLEANUP: Purified data (without unknown keys) passed to req.body
   req.body = result.data; 
   next();
 };
@@ -93,8 +95,6 @@ const validateVendorProfile = (req, res, next) => {
       errors: result.error.issues.map(err => err.message) 
     });
   }
-  
-  // 🟢 CLEANUP: Purified data securely passed to req.body for Controller
   req.body = result.data;
   next();
 };
