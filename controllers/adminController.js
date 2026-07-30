@@ -1,31 +1,29 @@
 const jwt = require('jsonwebtoken');
 const Vendor = require('../models/Vendor');
-const logger = require('../config/logger'); // 🟢 CRITICAL FIX: Logger import kiya taaki server crash na ho
+const logger = require('../config/logger'); 
 
-// 1. Admin Login API
+// ==========================================
+// 1. ADMIN LOGIN API
+// ==========================================
 exports.adminLogin = (req, res, next) => {
   try {
     const { username, password } = req.body;
 
-    // 🟢 SECURITY FIX 1: Blank payload block kiya (undefined === undefined se bachne ke liye)
     if (!username || !password) {
       return res.status(400).json({ success: false, message: 'Username and password are required!' });
     }
 
-    // 🟢 SECURITY FIX 2: Check kiya ki ENV mein admin credentials set hain ya nahi
     if (!process.env.ADMIN_USERNAME || !process.env.ADMIN_PASSWORD) {
       logger.error('🔥 [FATAL] Admin credentials missing in environment variables!');
       return res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 
     if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
-      
       if (!process.env.JWT_SECRET) {
         logger.error('🔥 [FATAL] JWT_SECRET missing in environment variables!');
         return res.status(500).json({ success: false, message: 'Internal Server Error' });
       }
 
-      // 🟢 SECURITY FIX 3: Removed 'Qzkip' hardcoded fallback
       const token = jwt.sign({ role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '1d' });
       
       logger.info('✅ [ADMIN] Admin logged in successfully.');
@@ -35,14 +33,15 @@ exports.adminLogin = (req, res, next) => {
     logger.warn(`🛑 [ADMIN] Failed login attempt with username: ${username}`);
     return res.status(401).json({ success: false, message: 'Invalid Username or Password!' });
   } catch (error) {
-    next(error); // 🟢 FIXED: Bheja gaya global error handler ko
+    next(error); 
   }
 };
 
-// 2. Fetch pending AND rejected vendors
+// ==========================================
+// 2. FETCH PENDING & REJECTED VENDORS
+// ==========================================
 exports.getPendingVendors = async (req, res, next) => {
   try {
-    // 🟢 FIXED: Added .lean() for faster database read
     const pendingVendors = await Vendor.find({ status: { $in: ['pending', 'rejected'] } })
       .select('-googleUID')
       .lean();
@@ -53,7 +52,25 @@ exports.getPendingVendors = async (req, res, next) => {
   }
 };
 
-// 3. API to approve a vendor
+// ==========================================
+// 🟢 3. NEW: FETCH ACTIVE/APPROVED VENDORS (GOD MODE)
+// ==========================================
+exports.getActiveVendors = async (req, res, next) => {
+  try {
+    const activeVendors = await Vendor.find({ status: 'approved' })
+      .select('-googleUID')
+      .sort({ createdAt: -1 }) // Naye approved vendors upar dikhenge
+      .lean();
+      
+    res.status(200).json({ success: true, count: activeVendors.length, data: activeVendors });
+  } catch (error) {
+    next(error); 
+  }
+};
+
+// ==========================================
+// 4. APPROVE A VENDOR
+// ==========================================
 exports.approveVendor = async (req, res, next) => {
   try {
     const { vendorId } = req.params;
@@ -68,7 +85,9 @@ exports.approveVendor = async (req, res, next) => {
   }
 };
 
-// 4. API to REJECT a vendor (Soft Reject - Allows Re-apply)
+// ==========================================
+// 5. REJECT A VENDOR (Soft Reject)
+// ==========================================
 exports.rejectVendor = async (req, res, next) => {
   try {
     const { vendorId } = req.params;
@@ -83,7 +102,9 @@ exports.rejectVendor = async (req, res, next) => {
   }
 };
 
-// 5. API to DELETE a spammer (Hard Delete - Brahmastra 🗑️)
+// ==========================================
+// 🟢 6. UPDATED: DELETE VENDOR (Hard Delete - Brahmastra 🗑️)
+// ==========================================
 exports.deleteVendor = async (req, res, next) => {
   try {
     const { vendorId } = req.params;
@@ -91,8 +112,12 @@ exports.deleteVendor = async (req, res, next) => {
     
     if (!vendor) return res.status(404).json({ success: false, message: 'Vendor not found' });
 
-    logger.warn(`🗑️ [ADMIN] Spammer Vendor Deleted: ID ${vendorId}`);
-    res.status(200).json({ success: true, message: 'Spammer permanently deleted from database.' });
+    // 💡 PRO TIP: Agar future mein "Queue" ya "Tokens" ka model banega, 
+    // toh humein unhe bhi yahan delete karna padega taaki junk data jama na ho.
+    // Example: await Token.deleteMany({ vendorId: vendorId });
+
+    logger.warn(`🗑️ [ADMIN] Spammer/Vendor Deleted: ${vendor.shop_name} (ID: ${vendorId})`);
+    res.status(200).json({ success: true, message: `${vendor.shop_name} permanently deleted from database.` });
   } catch (error) {
     next(error);
   }
